@@ -1,0 +1,68 @@
+/*
+	std::string 문자 접근하기와 배열로의 변환
+	1. 오류처리를 안해주는 조금 더 빠른버전
+	2. at함수를 이용해 오류처리를 해주는 대신 조금 더 느린 경우
+	
+	c-style로 변환
+*/
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+int main()
+{
+	string my_str("abcdefg");
+	
+	cout << my_str[0] << endl;
+	cout << my_str[3] << endl;
+	
+	my_str[3] = 'Z';
+	cout << my_str << endl;
+
+	// my_str[100] = 'X'; // Runtime Error
+	
+	// 이래도 런타임에러가 남. 
+	// 느려질까봐 예외처리를 안넣은것 
+	// string에서 대괄호 오버로딩이 되어있는경우 예외처리를 안해준다.
+	// 사용자가 확실히 데이터를 가지고 있는 영역이라는걸 보장해줘야한다. 
+	// assert등을 사용할 수도 있음. 
+	// at함수에서는 throw를 해준다.
+	// vector도 마찬가지의 경우가 있다.
+	/*
+	try 
+	{
+		// my_str[100] = 'X'; // Performance
+		my_str.at(100) = 'X'; // Stability
+	}
+	catch (std::exception & e)
+	{
+		cout << e.what() << endl;
+	}
+	*/
+	
+	
+	// c_str로 가져올때는 c-style인양 null 캐릭터를 붙여서 준다.
+	// c_str() --> c-style어레이로 바꿔줌.
+	cout << my_str.c_str() << endl;
+	const char *arr =  my_str.c_str();
+	cout << (int)arr[6] << endl;
+	cout << (int)arr[7] << endl;
+	
+	// c_str()는 data()와 같다.
+	const char *arr2 =  my_str.data();
+	
+	
+	// 복사해주는건 좋은에 널캐릭터로 들어가지 않아서 
+	// 이상한 글자가 나올 수 있다. 따라서 이방식일 경우 널캐릭터를 따로 넣어줘야함 
+	char buf[20];
+	
+	my_str.copy(buf, 5, 1);
+	buf[5] = '\0';
+	
+	cout << buf << endl;
+	
+	return 0;
+}

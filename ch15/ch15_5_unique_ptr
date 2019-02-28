@@ -1,0 +1,23 @@
+/*
+	std::unique_ptr // 소유권이 한곳에만 있을때 쓰는 ptr
+*/
+
+#include <iostream>
+#include <memory>
+
+using namespace std;
+
+int main()
+{
+	
+	// std::unique_ptr<Resource> res(Resource(1000000));
+	
+	// std::unique_ptr<int> upi(new int);
+	// auto *ptr = new Resource(5);
+	// std::unique_ptr<Resource> res1(new Resource(5));
+	// auto res1 = std::make_unique<Resource>(5); // 생성자인거처럼 만들어냄
+	
+	
+	
+	return 0;
+}

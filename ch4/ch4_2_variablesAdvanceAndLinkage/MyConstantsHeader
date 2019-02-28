@@ -1,0 +1,10 @@
+#pragma once
+
+// 전역 상수는 괜찮지 않냐?, 상수들은 묶여있는 경우가 많아서 X
+namespace Constants
+{
+	// 여기서는 선언만
+	extern const double pi;
+	extern const double gravity;
+	//...
+}

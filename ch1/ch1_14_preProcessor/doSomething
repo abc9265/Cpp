@@ -1,0 +1,13 @@
+#include <iostream>
+
+void doSomething()
+{   // using namespace는 가급적 중괄호 안에 넣어두는 것이 좋다.
+	using namespace std;
+	#ifdef LIKE_APPLE
+		cout << "Apple " << endl;
+	#endif 
+	
+	#ifndef LIKE_APPLE // if not defined
+		cout << "Orange" << endl;
+	#endif
+}

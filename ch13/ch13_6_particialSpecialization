@@ -1,0 +1,85 @@
+/*
+ 	템플릿을 부분적으로 특수화하기
+	Particial Specialization
+*/
+
+#include <iostream>
+#include <cstring>
+
+using namespace std;
+
+template <class T, int size>
+class StaticArray_BASE
+{
+	private:
+	T m_array[size];
+	
+	public:
+	T * getArray() { return m_array; }
+	
+	T & operator[] (int index)
+	{
+		return m_array[index];
+	}
+	
+	void print()
+	{
+		for (int count = 0; count < size; ++count)
+			std::cout << (*this)[count] << ' ';
+		std::cout << endl;
+	}
+};
+
+// 상속을 하는 이유는 템플릿을 통째로 스페셜라이제이션하는거보단 이게 더 편하기 때문
+// member function에 대해서 멤버에 대해서 직접 specialization하기엔 힘드니 
+// 상속구조를 이용하면 좀 편하게 할 수 있다.
+template <class T, int size>
+class StaticArray : public StaticArray_BASE<T, size>
+{
+};
+
+template <int size>
+class StaticArray<char, size> : public StaticArray_BASE<char, size>
+{
+	public:
+	void print()
+	{
+		for (int count = 0; count < size; ++count)
+			std::cout << (*this)[count];
+		std::cout << endl;
+	}
+};
+
+
+// size는 templatize 된 상태로 두고 타입만 스페셜라이즈하자.
+// 다닥다닥 붙은형태로 나오게됨.
+/*template <int size>
+void print(StaticArray<char, size> &array)
+{
+	for (int count = 0; count < size; ++count)
+		std::cout << array[count];
+	std::cout << endl;
+}*/
+
+
+int main()
+{
+	StaticArray<int, 4> int4;
+	
+	int4[0] = 1;
+	int4[1] = 2;
+	int4[2] = 3;
+	int4[3] = 4;
+	
+	int4.print();
+	
+	StaticArray<char, 14> char14;
+	char14[0] = 'H';
+	char14[1] = 'e';
+	
+	strcpy(char14.getArray(), "Hello, world!");
+	
+	char14.print();
+	
+	return 0;
+}

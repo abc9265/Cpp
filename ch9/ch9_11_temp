@@ -1,0 +1,40 @@
+/*
+	
+	대입 연산자 오버로딩, 
+	깊은 복사 vs 얕은 복사
+	동적할당된 메모리에 대한 포인터 변수를 멤버로서 가지고있는 클래스의경우 복사하거나 대입을할때
+	깊은 복사냐 얕은복사냐에 따라 복사 생성자 구분이 까다로워진다.
+	Deep copy vs Shallow copy
+
+*/
+
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+class MyString
+{
+	//private:
+	public:
+	int *m_data = nullptr;
+	int m_length = 0;
+	
+	public:
+	MyString(const char *source = "")
+	{
+		assert(source);
+		
+		m_length = std::strlen(source) + 1;
+		m_data = new char[m_length];
+	}
+	
+};
+
+int main()
+{
+	
+	
+	
+	return 0;
+}

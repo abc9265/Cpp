@@ -1,0 +1,89 @@
+/*
+	enumerated types
+*/
+
+#include <iostream>
+#include <typeinfo>
+#include <string>
+
+
+enum Color // 2. Enumerated의 약자 user defined Data Type 사용자 정의 자료형
+{
+	// COLOR_WHITE = -3, 이렇게 정의할 수도 있음.
+	COLOR_BLACK,
+	COLOR_RED,
+	COLOR_BLUE,
+	// COLOR_MILKYWHITE = 5,
+	// COLOR_CRIMSONRED = 5, // 위의 MILKYWHITE와 같게하면 문제가 생길 수 있음.
+	COLOR_GREEN,
+	COLOR_SKYBLUE,
+	// 가장 좋은건 그냥 기본으로 할당되는거 쓰는것
+};
+// 3. 새로 추가할때마다 쉼표를 치고 하는게 번거로우니까 항상 치고있을 수 있게 문법이 변경됨
+
+// 5.
+// 서로 다른 열거형은 전역변수처럼 실행됨
+// 같은 변수의 값을 처리하는건 enum 클래스를 이용해야함.
+enum Feeling
+{
+	HAPPY,
+	JOY,
+	TIRED,
+	BLUE,
+}; 
+/*
+// 1. 사람이 코드를 외우기 힘듬 -> 열거형으로 하면 편함
+int computeDamage(int weapon_id)
+{
+	if (weapon_id == 0 ) // sword
+	{
+		return 1;
+	}
+	
+	if (weapon_id == 1)
+	{
+		return 2;
+	}
+}
+*/
+
+int main()
+{
+	using namespace std;
+	
+	// enum을 정수형처럼 쓰는건 또 막아놨음
+	int color_id = COLOR_RED;
+	
+	cout << color_id << endl;
+	
+	// 이건 안됌 애초에 이걸 안쓰려고 만든거라그럼 cast는 됨
+	// static_cast<Color>(3);
+	// Color my_color = color_id; 
+	
+	//4.
+	Color paint = COLOR_BLACK; // 자료형처럼 사용 가능
+	Color house(COLOR_BLUE);
+	Color apple{COLOR_RED}; // 다른것과 다르게 uniform init은 좀 다름 주의하자.
+	
+	Color my_color = COLOR_BLACK;
+	// cin으로 직접 받을 수는 없음
+	// 우회해서(detour)는 가능
+	int in_number;
+	cin >> in_number;
+	
+	if(in_number = static_cast<Color>(0)) my_color = static_cast<Color>(0);
+	
+	cout << my_color << " " << COLOR_BLACK << endl; // 0으로 나옴 
+	cout << COLOR_RED << endl;
+	
+	string str_input;
+	
+	std::getline(cin, str_input);
+	
+	// 권장 안함,
+	// 프로그래머나 사용자가 사람이기 떄문에 문제를 낼 수도 있기 떄문
+	if(str_input == "COLOR_BLACK") 
+		my_color = static_cast<Color>(0); 
+	
+	return 0;
+}

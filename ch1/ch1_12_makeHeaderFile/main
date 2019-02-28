@@ -1,0 +1,15 @@
+// iostream은 컴파일러에 따라오는 스탠다드 헤더라 .h가 없음.
+#include <iostream>
+#include "myHeaders/add.h"
+
+using namespace std;
+
+// int add(int a, int b); // 헤더파일이 없을경우 이렇게 해야하고
+                          // 헤더파일에 따로 정의해두는게 일반적이다.
+
+int main()
+{
+	cout << add(1, 2) << endl;
+	
+	return 0;
+}

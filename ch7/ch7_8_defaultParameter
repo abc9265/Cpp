@@ -1,0 +1,39 @@
+/*
+	Default Parameters
+*/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+void print(int x = 10, int y = 20, int z = 30); // in header 
+// 기본값 설정을 definition또는 declation 둘 중 하나에서만 할 수 있음.
+// 보통 기본값 설정은 헤더에다가 둠 
+
+void printString(std::string str) {}
+void printString(char ch = ' ') {}
+
+void printInt(int x) {}
+void printInt(int x, int y = 20) {}
+
+// 기본값이 오른쪽에 있을때는 왼쪽에도 기본값을 넣을 수 있지만 
+// 가운데있는 매개변수에 기본값이 있는데 가장 오른쪽에있는 값이 기본값이 없을 수는 없음
+void print(int x, int y, int z)
+{
+	cout << x << " " << y << " " << z << endl;
+}
+
+int main()
+{
+	print();
+	print(100);
+	print(100, 200);
+	print(100, 200, 300);
+		
+	
+	printString(); // 오버로딩되있는 함수 호출 시 디폴트값이 있는 함수를 선택하게 됨
+	// printInt(10); // 이렇게 디폴트값이 있는경우 오버로딩에 문제가 생길 수 있다.
+	// ambiguous문제 발생
+	return 0;
+}

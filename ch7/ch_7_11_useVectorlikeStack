@@ -1,0 +1,90 @@
+/*
+	std::vector를 stack처럼 사용하기.
+*/
+
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void printStack(const std::vector<int> &stack)
+{
+	for(auto &element : stack)
+		cout <<  element << " " ;
+	cout << endl;
+}
+
+
+int main()
+{
+	// int *v_ptr = new int[3]{1, 2, 3};
+	
+	std::vector<int> v {1, 2, 3};
+	
+	// vector에는 size, capacity가 있다. Heap에서 잡아올때는 좀 느린데 
+	// 그에따가 new와 delete는 좀 느린편.
+	// vector를 잘 사용하는 방법은 new와 delete를 최대한 적게 호출하는것
+	// capacity는 코드내부에서 capacity개수만큼 메모리를 가지고 있는데
+	// size는 그중에서 몇개만 사용하는지라고 보면 된다.
+	
+	for(auto &element : v)
+		cout <<  element << " " ;
+	cout << endl;
+	
+	cout << v.size() << endl;
+	
+	
+	// 리사이징
+	// capacity의 값이 3 즉 용량은 3을 유지한다.
+	// 이게 중요한 이유는 3개중에 2개를 복사를 하고 
+	// 원래껄 삭제하면 2칸짜리 메모리를 가지게 됨 이러면 깔끔함
+	// 근데 벡터는 속도를 중시하기 떄문에 메모리를 그냥 가지고있고
+	// 2개만 가지고있다고 속이는것임
+	v.resize(2);
+	
+	for(auto &element : v)
+		cout <<  element << " " ;
+	cout << endl;
+	
+	cout << v.size() << " " << v.capacity() << endl;
+	
+	cout << v[2] << endl;
+	
+	// 포인터로 주소를 가져와서 세번째 바운더리에 해당하는 값을 가져옴
+	int *ptr = v.data();
+	cout << ptr[2] << endl;
+	
+	// capacity만 강제로 키워봄
+	// 메모리를 미리 확보해두겠다.
+	// reserve를 미리 해두면 속도를 훨씬 빠르게 할 수 있음.
+	v.reserve(100);
+	for(auto &element : v)
+		cout <<  element << " " ;
+	cout << v.size() << " " << v.capacity() << endl;
+	
+	
+	cout << "-----------------------------------" << endl;
+	// stack처럼 사용하기
+	// 스택오버플로우가 나면 벡터를 스택처럼 사용하는 일이 있음.
+	// stack에서 넣고 빼는걸 push한다. pop한다라고한다.
+	// 왜 하필 벡터로? reserve를 해놓으면 capacity를 해놓으면
+	// new와 delete를 할 필요가 없어서 유용하다.
+	std::vector<int> stack;
+	
+	stack.push_back(3);
+	printStack(stack);
+	stack.push_back(5);
+	printStack(stack);
+	stack.push_back(7);
+	printStack(stack);
+	stack.pop_back();
+	printStack(stack);
+	stack.pop_back();
+	printStack(stack);
+	stack.pop_back();
+	printStack(stack);
+	
+	
+	//stack.reserve(1024)
+	return 0;
+}

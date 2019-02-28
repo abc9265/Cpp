@@ -1,0 +1,74 @@
+/*
+ 	Overriding Inherited Functions
+	겹치는 기능을 약간씩 다르게 가지고 있는 경우가 있는데 
+	이때 사용된다.
+	오버라이드는 이름이 같은 함수를 자식클래스를 새로 정의해서 사용하는것
+	기능을 추가하기위해서 사용하는것을 오버라이딩이라고한다.
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Base
+{
+	protected:
+	int m_i;
+	public:
+	Base(const int & value_in)
+		: m_i(value_in)
+	{}
+	void print()
+	{
+		cout << "I'm base" << endl;
+	}
+	
+	friend std::ostream & operator << (std::ostream & out, const Base & b)
+	{
+		cout << "This is base output" << endl;
+		return out;
+	}
+};
+
+
+
+class Derived : public Base
+{
+	private:
+	double m_d;
+	
+	public:
+	Derived(int value)
+		: Base(value)
+		{}
+	
+	// 함수의 이름은 똑같이 하고싶은데 기능은 다른걸 만들고싶음.
+	// 다형성때문에 Base와 같은 이름을 쓴다.
+	void print()
+	{
+		Base::print(); // 이렇게하면 Base의 프린트를 쓴다
+		// print(); 이런식으로 써버리면 무한반복의 루프에 빠지게된다!
+		cout << "I'm derived" << endl;
+	}
+	
+	friend std::ostream & operator << (std::ostream & out, const Derived & b)
+	{
+		// static cast를 이용하면 friend 클래스를 
+		// 간단하게 오버라이드 할 수 있다.
+		cout << static_cast<Base>(b) << endl; 
+		cout << "This is Derived output" << endl;
+		return out;
+	}
+};
+
+int main()
+{
+	Base base(5);
+	cout << base;
+	
+	Derived derived(7);
+	cout << derived;
+	
+	
+	return 0;
+}

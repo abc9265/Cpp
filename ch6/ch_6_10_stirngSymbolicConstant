@@ -1,0 +1,52 @@
+/*
+	C-style string symbolic constant
+*/
+
+
+#include <iostream>
+
+using namespace std;
+
+// 리턴타입으로도 쓸 수 있다.
+const char* getName()
+{
+	return "JackJack";
+}
+
+int main()
+{
+	
+	
+	// char name [] = "Jack Jack";
+	
+	// 포인터에는 담을 수 없음 메모리의 주소만 가리킬 수 있기 때문
+	// char *name = "Jack Jack";
+	// 기호적인 상수처럼 사용 
+	const char *name  = getName();
+	const char *name2 = getName();
+	const char *name3 = "Jack Jack3";
+	
+	// 같은 주소를 가리킴
+	// 컴파일러가 두개가 같으니까 메모리 같이써라라고 한것임
+	cout << (uintptr_t)name << endl;
+	cout << (uintptr_t)name2 << endl;
+	cout << (uintptr_t)name3 << endl;
+	
+	// 문자 어레이의 특성
+	// cout에서 문자열은 특별히 처리한다.
+	// 문자의 배열일 가능성이 높다고 판단하고 널캐릭터가 나올때까지 어레이를 쭉 출력함
+	// 그래서 위험성이 있다.
+	int int_arr[5] = { 1, 2, 3, 4, 5};
+	char char_arr[] = "Hello, World";
+	const char *name5 = "Jack Jack";
+	
+	cout << int_arr << endl;
+	cout << char_arr << endl;
+	cout << name5 << endl;
+	
+	char c = 'Q';
+	cout << &c << endl;
+	
+	
+	return 0;
+}

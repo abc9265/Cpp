@@ -1,0 +1,27 @@
+/*
+	매개변수와 인자의 구분
+	Parameter and Argument
+*/
+
+
+#include <iostream>
+
+
+int foo(int x, int y);
+
+int foo(int x, int y)
+{
+	return x + y;
+} // x and y are destroyed here
+
+int main()
+{
+	using namespace std;
+	
+	int x = 1, y = 2;
+	
+	foo(6, 7); // 6, 7 : arguments (actual parameters) 실 인자
+	foo(x, y + 1);
+	
+	return 0;
+}

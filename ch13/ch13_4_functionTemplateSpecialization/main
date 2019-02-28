@@ -1,0 +1,40 @@
+/*
+	함수 템플릿 특수화
+	Function Template Specialization
+*/
+
+#include <iostream>
+#include "Storage.h"
+
+using namespace std;
+
+template<typename T>
+T getMax(T x, T y)
+{
+	return (x > y) ? x : y;
+}
+
+// specialization
+// 특수한 타입에 대해서 적용함 일반화됬던것을 특수화된것에만 적용
+template<>
+char getMax(char x, char y)
+{
+	cout << "Warning : comparing chars" << endl;
+	return (x > y) ? x : y;
+}
+
+int main()
+{
+	// getMax<int>(1, 2) 이런식으로 instantiation을 해주고있다.
+	cout << getMax(1, 2) << endl;
+	
+	// 경고를 띄워주고 싶을 수 있음.
+	// if문으로도 할 수 있지만 specilization을 사용해도 된다.
+	cout << getMax('a', 'b') << endl;
+	
+	Storage<int> nValue(5);
+	Storage<double> dValue(1.3);
+	
+	
+	return 0;
+}

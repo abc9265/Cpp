@@ -1,0 +1,67 @@
+/*
+	
+	대입 연산자 오버로딩, 
+	깊은 복사 vs 얕은 복사
+	동적할당된 메모리에 대한 포인터 변수를 멤버로서 가지고있는 클래스의경우 복사하거나 대입을할때
+	깊은 복사냐 얕은복사냐에 따라 대입 연산자 오버로딩 혹은 복사 생성자 구분이 까다로워진다.
+	Deep copy vs Shallow copy
+	동적메모리할당을 할때에는 assignment 오버로딩을할때에 주의해야한다.
+
+*/
+
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+class MyString
+{
+	//private:
+	public:
+	int *m_data = nullptr;
+	int m_length = 0;
+	
+	public:
+	MyString(const char *source = "")
+	{
+		assert(source);
+		
+		// 글자수 외에 문자열의 마지막이라는 널 캐릭터를 추가하기 위해 하나를 추가해둠
+		m_length = std::strlen(source) + 1; 
+		m_data = new char[m_length];
+		
+		for (int i = 0; i < m_length; ++i)
+			m_data[i] = source[i];
+		
+		m_data[m_length - 1] = '\0';
+	}
+	
+};
+
+int main()
+{
+	MyString hello("Hello");
+	
+	cout <<(int*)hello.m_data << endl;
+	cout << hello.getString() << endl;
+	
+	{
+		MyString copy = hello;
+		cout << (int*)copy.m_data << endl;
+		cout << copy.getString() << endl;
+	}
+	// 이경우 copy가 기존 컨스트럭터에서 주소를 복사한후에 
+	// 스코프를 벗어나면서 소멸자를 이용해 사라지게되는데 
+	// 그러면 HEAP에 있었던 기존 데이터가 사라지게되어 
+	// 기존에 사용하던 hello를 이용하면 이상한 데이터가 액세스되게된다.
+	// 이경우 얕은복사인데
+	// 메모리를 새로 할당받은뒤 거기에 값을 집어넣는 깊은복사를 쓰면 좋다.
+	// 대입연산자일경우
+	// if(this == &source) // prevent self-assignment
+	//	return *this;
+	// 대입만할떄는 assignment가 호출되고
+	// Mystring str1(hello) 는 컨스트럭터가 호출된다
+	
+	
+	return 0;
+}

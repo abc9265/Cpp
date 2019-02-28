@@ -1,0 +1,83 @@
+/*
+	pointerBasic	
+	메모리주소를 담는 변수 -> 포인터
+*/
+
+
+#include <iostream>
+#include <typeinfo>
+
+// 이런식으로 함수에 써도됨
+int* doSomething(int* ptr_a)
+{
+}
+
+struct Something
+{
+	int a, b, c, d;
+};
+
+int main()
+{
+	using namespace std;
+	
+	int x = 5;
+	double d = 1.0;
+	
+	cout << x << endl;
+	cout << &x << endl; // & : address-of Operator
+	
+	// de-reference operator (*) 
+	// reference -> 간접적으로 얘기하는 느낌 추천서를 직접받는게아닌 이분에게 연결해보세요
+	// 참고도서가 이러이러한것이 있으니 연결시켜드리겠습니다. 이런개념 
+	// 손가락으로 가리킨다. 포인터는 레퍼런스의 일종임
+	// C++ 언어에는 포인터를 제외하고도 레퍼런스가 또있어서 헷갈릴 수도 있음.
+	
+	// 주소에 진짜 뭐가있는지 확인해보자 (*)
+	// 연산자 우선순위가 상관없어서 *&x로 써도됨 상쇄되는거처럼 보임
+	cout << *&x << endl; 
+	
+	// Pointer - 메모리 주소를 담는 변수
+	// 오른쪽에 붙이는걸 권장함 양쪽을 전부 띄어도됨
+	int * ptr_x = &x;
+	double * ptr_d = &d; 
+	// 이런식으로 데이터타입인거처럼 해버릴수도 있음
+	// 그런데 문법상 별이 붙어있는 애 하나만 포인터가 됨 
+	// int* ptr_x = &x, ptr_y = &x; // ptr_x만 포인터
+	// pint ptr_x = &x, ptr_y = &x; // 이건 둘다 포인터임
+	// 포인터의 타입을 알고있어야하는 이유는 de-referencing할때 
+	// 어떤 타입으로 가져올지 헷갈리니까 명시하는것임
+	// 기본적인 이유는 array때문에 포인터를 가져옴
+	// 포인터로 주소만 가져오면 성능의 향상을 훨씬 더 가져올 수 있기 떄문임
+	typedef int* pint;  
+	cout << ptr_x << endl;
+	cout << *ptr_x << endl;
+	
+	cout << ptr_d << endl;
+	cout << *ptr_d << endl;
+	
+	// 사용자 정의 자료형 structure등에서도 쓸 수 있다.
+	
+	// typeInfo 
+	// 포인터는 기본적으로 주소값이고 모든 타입에대해서 사이즈가 같다.
+	// x64일경우 주소가 8바이트, x86일경우 주소가 4바이트
+	cout  << typeid(ptr_x).name() << endl;
+	
+	int *ptr_a;
+	double *ptr_b;
+	
+	cout << sizeof(x) << endl;
+	cout << sizeof(d) << endl;
+	cout << sizeof(ptr_a) << endl;
+	cout << sizeof(ptr_b) << endl;
+	cout << sizeof(&d) << endl;
+	cout << sizeof(&x) << endl;
+	
+	Something ss;
+	Something *ptr_s;
+	
+	cout << sizeof(Something) << endl;
+	cout << sizeof(ptr_s) << endl;
+	
+	return 0;
+}

@@ -1,0 +1,62 @@
+/*
+	while statement
+*/
+
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+	
+	cout << "While Loop Test" << endl;
+	
+	int count = 0; // 카운트를 하나 선언해야 한다.
+	
+	// while은 무한히 돌리는 경우가 많음
+	// 그럴때 자주 씀
+	// goto문만 사용해서 바꿔보자
+	while (count < 10)
+	{
+		cout << count << endl;
+		++count;
+		
+		if (count > 100)
+			break;
+	}
+	
+	unsigned int cnt = 10;
+	
+	// 오버플로우 발생!
+	// 이상한 숫자가 마구 나옴
+	// 감소의 경우 unsigned 타입을 쓰면 안됌
+	// 꼭 unsigned를 쓰지 말라는건 아님
+	// 최적화나 그외 다른 용도의 경우 써야하는 경우도 있음.
+	/*
+	while (cnt >= 0)
+	{
+		if(cnt == 0) cout << "zero";
+		else cout << cnt << " " << endl;
+		cnt--;
+	}
+	*/
+	
+	// 구구단 출력
+	// while문을 goto문을 사용해서 변경하는것
+	// 출력된 패턴을 뒤집힌 패턴으로 하려면 어떻게 해야하는가
+	// 패턴을 이리저리 뒤집어보자 빈칸을 O나 X로 채우면 어떻게 해야하는가
+	int outer_count = 1;
+	
+	while(outer_count <= 5)
+	{
+		int inner_count = 1;
+		while(inner_count <= outer_count)
+		{
+			cout << inner_count++ << " ";
+		}
+		
+		cout << endl;
+		++outer_count;
+	}
+	
+	return 0;
+}

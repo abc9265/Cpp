@@ -1,0 +1,28 @@
+/*
+ 	구성관계
+	Composition
+	몬스터가 position을 사용하는걸 composition이라고 부름
+*/
+
+#include <iostream>
+#include "Monster.h"
+
+using namespace std;
+
+
+
+int main()
+{
+	Monster mon1("Sanson", Position2D(0, 0));		
+	// mon1.m_location;
+	cout << mon1 << endl;
+	// while(1) // game Loop
+	
+	Monster mon2("Parsival", Position2D(0, 0));
+	{
+		// event
+		mon1.moveTo(Position2D(1, 1));
+	}
+	
+	return 0;
+}

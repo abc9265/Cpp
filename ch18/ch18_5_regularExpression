@@ -1,0 +1,49 @@
+/*
+	정규표현식 소개 regular expression
+*/
+
+#include <iostream>
+#include <regex> // regular expression c++17 이상부터.
+
+using namespace std;
+
+int main()
+{
+	// +는 다음에 한글자가 더 나온다는 뜻
+	// *은 한개이상의 글자라는 뜻
+	// regex re("\\d"); // \\d는 백슬레시 하나는 진짜 백슬레시라는 뜻이고 degit인지 판별하겠다는 뜻
+	// regex re("[ab]"); // a와 b만 괜찮다.
+	// regex re("[[:digit:]]){3}"); // [:digit]이 \ 뒤의 것과와 같은 역할을함 대괄호는 바깥쪽 대괄호안에 있는 문자들은 ok 물결괄호 안의 3은 digit을 딱 3개만 받아야겠다는 뜻
+	//regex re("[A-Z]+");
+	// regex re("[A-Z]{1,5}"); // 최소 1개 최대 5개라는 의미
+	regex re("([0-9]{1})([-]?)([0-9]{1,4})"); // ? - 있어도되고 없어도 되고
+	
+	string str;
+	
+	while(true)
+	{
+		getline(cin, str);
+		
+		if(std::regex_match(str, re)) // 정규표현식과 맞는지 안맞는지 확인해줌
+			cout << "Match" << endl;
+		else
+			cout << "No match" << endl;
+		
+		// print matchs
+		// reference manuals 참고
+		{
+			auto begin = std::sregex_iterator(str.begin(), str.end(), re);
+			auto end = std::sregex_iterator();
+			for (auto itr = begin; itr != end; ++itr)
+			{
+				std::smatch match = *itr;
+				cout << match.str() << " " ;
+			}
+			cout << endl;
+		}
+		cout << endl;
+	}
+	
+	
+	return 0;
+}

@@ -1,0 +1,80 @@
+/*
+	복사생성자, 복사초기화, 반환값 최적화(RVO)
+*/
+
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+
+class Fraction
+{
+	private:
+	int m_numerator;
+	int m_denominator;
+	
+	// 복사를 못하게 막고싶다면 copy constructor를 private에 놓으면 된다.
+	/*
+	Fraction(const Fraction &fraction) // copy constructor
+		: m_numerator(fraction.m_numerator), m_denominator(fraction.m_denominator)
+	{
+		cout << "Copy constructor called"<< endl;
+	}
+	*/
+	
+	public:
+	Fraction(int num = 0, int den = 1)
+		:m_numerator(num), m_denominator(den)
+	{
+		assert(den != 0);
+	}
+	
+	
+	Fraction(const Fraction &fraction) // copy constructor
+		: m_numerator(fraction.m_numerator), m_denominator(fraction.m_denominator)
+	{
+		cout << "Copy constructor called"<< endl;
+	}
+	
+	
+	friend std::ostream & operator << (std::ostream & out, const Fraction & f)
+	{
+		cout << f.m_numerator << " / " << f.m_denominator << endl;
+		return out;
+	}
+};
+
+
+// 디버그모드일때는 copy constructor를 생성하고
+// 릴리즈모드일때는 copy constructor를 없앰
+// 이걸 반환값 최적화라고함.
+// 릴리즈모드일경우 doSomething과 호출된 함수에서의 주소도 같음
+Fraction doSomething()
+{
+	Fraction temp(1, 2);
+	cout << &temp << endl;
+	return temp;
+}
+
+
+int main()
+{
+	Fraction frac(3, 5);
+	Fraction fr_copy(frac);
+	
+
+	
+	cout << frac << " " << fr_copy << endl;
+	
+	// 이경우엔 복사생성자가 생성이 안됨
+	// 컴파일러가 알아서 Fraction을 빼준것
+	Fraction fr_copy2(Fraction(3, 10));
+	
+	cout << "-----------------------" << endl;
+	Fraction result = doSomething();
+	cout << &result << endl;
+	cout << result << endl;
+	
+	return 0;
+}

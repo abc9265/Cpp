@@ -1,0 +1,53 @@
+/*
+	6.7a Null Pointer	
+*/
+
+// OS가 엉뚱한곳에서 포인터를 가져오면 못하게하는데
+// 이럴때 널포인터가 자주 쓰인다. 
+
+
+#include <iostream>
+#include <cstddef>
+
+using namespace std;
+
+void doSomething(double *ptr)
+{
+	cout << "address of potiner varaible in doSomething() " << &ptr << endl;
+	if ( ptr != nullptr)
+	{
+		// do something useful
+		cout << *ptr << endl;
+	}
+	else
+	{
+		// do nothing with ptr
+		cout << "Null ptr, do nothing" << endl;
+	}
+}
+int main()
+{
+	
+	
+	// Null Pointer 선언
+	double *ptr = 0; // c-style 	
+	double *ptr2 = NULL; 
+	double *modern_ptr{ nullptr }; // modern-c++-style
+	
+	doSomething(ptr);
+	doSomething(nullptr);
+	
+	double d = 123.4;
+	doSomething(&d);
+	
+	ptr = &d;
+	doSomething(ptr);
+	
+	std::nullptr_t nptr; // null pointer만 넣을 수 있음. cstddef에 들어가있음
+	
+	// main내의 포인터 주소와 doSomething의 주소는 다름
+	// 파라미터내의 변수는 다시한번 선언되고나서 복사되기때문
+	cout << "address of potiner varaible in main() " << &ptr << endl;
+	
+	return 0;
+}

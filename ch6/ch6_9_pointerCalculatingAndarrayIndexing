@@ -1,0 +1,59 @@
+/*
+	Pointer Calculate And array Indexing
+*/
+
+
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+	
+	int value = 7;
+	int *ptr = &value;
+	
+	// 데이터 사이즈에 맞게 옆으로 한칸씩 간것임
+	// 주소는 데이터 타입에 관계없이 결정되지만 타입을 가져오는 이유이다. 
+	// 포인터 연산을 할 때 데이터타입이 결정되면 좋음
+	cout << uintptr_t(ptr - 1) << endl;
+	cout << uintptr_t(ptr) << endl;
+	cout << uintptr_t(ptr + 1) << endl;
+	cout << uintptr_t(ptr + 2) << endl;
+	cout << "\n" << endl;
+	
+	
+	double value2 = 7.0;
+	double *ptr2 = &value2;
+	
+	cout << uintptr_t(ptr2 - 1) << endl;
+	cout << uintptr_t(ptr2) << endl;
+	cout << uintptr_t(ptr2 + 1) << endl;
+	cout << uintptr_t(ptr2 + 2) << endl;
+	cout << "\n" << endl;
+	
+	
+	int array[] = {9, 7, 5, 3, 1};
+	int *ptr_array = array;
+	
+	for(int i = 0; i < 5; i++)
+	{
+		// cout << array[i] << " " << (uintptr_t)&array[i] << endl;
+		cout << *(ptr_array+i) << " " << (uintptr_t)(ptr + i) << endl;
+	}
+	
+	char name[] = "Jack Jack"; 
+	
+	const int n_name = sizeof(name) / sizeof(char);
+	
+	for(int i = 0; i < n_name; ++i)
+	{
+		cout << *(name + i);
+	}
+	cout << endl;
+	
+	// while문과 break를 사용해서 문자열을 출력하되 마지막에 널캐릭터는 출력하지 않도록
+	// 포인터 연산을 한번 사용해보자.
+	// ++ptr같은 증감연산자를 사용해보자.
+	
+	return 0;
+}

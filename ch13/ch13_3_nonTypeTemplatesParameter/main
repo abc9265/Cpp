@@ -1,0 +1,25 @@
+/*
+ 	Non-type Template Parameters
+*/
+
+#include "MyArray.h"
+
+using namespace std;
+
+int main()
+{
+	// std::vector(double> my_array; my_array.resize(100);
+	// MyArray<double> my_array(100);
+	// 컴파일 타임에 결정될 수 있는것만 들어갈 수 있다.
+	// 알고리즘에 자주 사용됨
+	// 2차원일땐 어떻게되고 ... 3차원일떈 어떻게되고 ...
+	MyArray<double, 100> my_array; // std::array<double, 100>
+	
+	for(int i = 0; i < my_array.getLength(); ++i)
+		my_array[i] = i + 65;
+	
+	my_array.print();
+	
+	
+	return 0;
+}

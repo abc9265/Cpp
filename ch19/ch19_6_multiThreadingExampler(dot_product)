@@ -1,0 +1,96 @@
+/*
+	멀티쓰레딩 예제 (벡터 내적)
+	각자 따로 전부 계산한뒤에 
+	하나의 쓰레드에서 처리
+	
+	글로벌 변수에 값을 더해나가는 방식 
+	vs
+	로컬성 부분적인 합을 받은뒤에 퓨처로 받아서 가져옴 
+	
+	thread에서 호출되는 함수들은 리턴을 못해서 후자의 방식이 힘듬. 
+	병행과정에서는 후자의 과정이 훨씬 더 편함.
+	
+	연습문제
+	//TODO: use divide and conquer strategy for std::thread
+	//TODO: use promise
+*/
+
+#include <iostream>
+#include <chrono>
+#include <mutex>
+#include <random>
+#include <thread>
+#include <utility>
+#include <vector>
+
+using namespace std;
+
+void dotProductNaive();
+
+int main()
+{
+	/*
+	inner product
+	v0 = {1, 2, 3}
+	v1 = {4, 5, 6}
+	v0_dot_v1 = 1*4 + 2*5 + 3*5
+	*/ 
+	
+	const long long n_data = 100'000'000;
+	const unsigned n_threads = 4;
+	
+	// initialize vectors
+	std::vector<int> v0, v1;
+	v0.reserve(n_data);
+	v1.reserve(n_data);
+	
+	random_device seed;
+	mt19937 engine(seed());
+	
+	uniform_int_distrubution<> uniformDist(1, 10);
+	
+	for(long long i = 0; i < n_data; ++i)
+	{
+		v0.push_back(uniformDist(engine));
+		v1.push_back(uniformDist(engine));
+	}
+	
+	cout << "std::inner_product" << endl;
+	{
+		const auto sta = chrono::steady_clock::now();
+		
+		// 0ull - 0인데 unsigned long long을 표기하고 넣었기 떄문에 sum은 unsigned long long이다.
+		// 멀티쓰레딩을 만들떄는 미리 답을 만들고 답을 비교하고 퍼포먼스를 비교하는게 좋다.
+		const auto sum = std::inner_product(v0.begin(), v0.end(), v1.begin(), 0ull);
+		
+		const chrono::duration<double> dur = chrono::steady_clock::now() - sta;
+		
+		cout << dur.count() << endl;
+		cout << sum << endl;
+		cout << endl;
+	}
+	
+	cout << "Naive" << endl;
+	{
+		const auto sta = chrono::steady_clock::now();
+		
+		unsigned long long sum = 0;
+		
+		vector<thread> threads;
+		threads.resize(n_threads);
+		
+		const unsigned n_per_thread = n_data / n_threads; // assume remainder = -
+		for (unsigned t = 0; t < n_threads; ++t)
+			threads[t] = std::thread(dotProductNaive, std::ref(v0), std::ref(v1), 
+									t * n_per_thread, (t + 1) * n_per_thread, std::ref(sum));
+		
+		for (unsigned t = 0; t < n_threads; ++t)
+			threads[t].join();
+		
+		const chrono::duration<double dur = chrono::steady_clock::now() - sta;
+		
+		cout << dur.count() << endl;
+		
+	}
+	return 0;
+}

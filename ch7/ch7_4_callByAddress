@@ -1,0 +1,38 @@
+/*
+	Passing Arguments by Address(Call by Address)
+*/
+
+#include <iostream>
+using namespace std;
+
+
+// 포인터도 call by reference의 경우때처럼 
+// 입력값에 리턴값처럼 활용이 가능하다.
+// 다만 입력때 주소값을 넣어야함으로 레퍼런스에 비해 조금 더 번거롭다.
+// array[]에서의 []는 디 레퍼런싱과 같다. 
+// const int * const ptr 이런것은 
+// 굳이 이런식으로까지 하지 않는데 그 이유는 
+// 호출한 함수의 입장에서는 어처피 포인터가 Call by value방식이기때문에
+// 로컬에서 사라져서 크게 위협이 되지 않기 때문이다.
+void foo(const int *ptr)
+{
+	cout << *ptr << " " << ptr << " " << &ptr << endl;
+}
+
+int main()
+{
+	int value = 5;
+	
+	cout << value << " " << &value << endl;
+	
+	int *ptr = &value;
+	
+	// 포인터의 주소가 서로 다름 
+	// 포인터 변수도 변수이고 파라미터내에서 새로 선언되기때문.
+	// Call by value가되는것임
+	cout << &ptr << endl; 
+	
+	foo(ptr); 
+	//foo(5); // 리터럴은 안됌
+	return 0;
+}

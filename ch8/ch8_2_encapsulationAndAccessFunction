@@ -1,0 +1,82 @@
+/*
+	Encapsulation, Access Specifiers, Access Function
+	캡슐화, 접근 지정자, 접근 함수
+	복잡해보이는걸 정리를 잘하도록
+*/
+
+#include <iostream>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+// 
+class Date
+{
+private:		// access specifier
+	int m_month;
+	int m_day;
+	int m_year;
+	
+public:  // access Function
+	void setDate(const int& month_input, const int& day_input, const int& year_input)
+	{
+		m_month = month_input;
+		m_day = day_input;
+		m_year = year_input;
+	};
+	
+	void setMonth(const int& month_input)
+	{
+		m_month = month_input;
+	}
+	
+	const int& getDay()
+	{
+		return m_day;
+	}
+	// setDay, setYear ... 
+	
+	// private은 다른 인스턴스임에도 불구하고 같은 클래스에서 나왔다면
+	// private 멤버에 접근이 가능하다.
+	void copyFrom(const Date& original)
+	{
+		m_month = original.m_month;
+		m_day = original.m_day;
+		m_year = original.m_year;
+	}
+	
+};
+
+int main()
+{
+	// 접근하고 있는 영역이 main함수 내이기 때문에 
+	// class 안에있는 멤버에 접근할 수 없다.
+	// access specifier가 public이면 접근가능 
+	// private면 접근불가. 막는게 기본임
+	// private로 막으면 어떻게 접근해야하는가?
+	/*
+	Date today{ 8, 4, 2025 };
+	today.m_month = 8;
+	today.m_day = 4;
+	today.m_year = 2025;
+	*/
+	
+	// private를 사용하려면 Access Function을 만들어줘야한다.
+	// 장기적으로 private를 써서 펑션을 만든 후 쓰는게 좋음
+	// getter, setter
+	Date today;
+	today.setDate(8, 4, 2025);
+	today.setMonth(10);
+	
+	cout << today.getDay() << endl;
+	
+	Date copy;
+	copy.copyFrom(today);
+	
+	// encapsulation을 할 때 굳이 getter setter로 구현하는 이유 
+	// 코드 전반에 걸쳐서 member variable들이 있다고 하고 
+	// 멤버명을 바꿔야한다면 밖에서 바꿔야할 것들이 많아짐
+	
+	return 0;
+}

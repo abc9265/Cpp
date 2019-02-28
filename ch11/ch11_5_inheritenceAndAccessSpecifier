@@ -1,0 +1,53 @@
+/*
+ 	Inheritence And Access Specfier
+	상속과 접근지정자
+*/
+
+#include <iostream>
+
+class Base
+{
+	public:
+	int m_public;
+	protected:
+	int m_protected;
+	private:
+	int m_private;
+};
+using namespace std;
+
+class Derived : public Base // public이아닌 protected나 private로 하게되면 더 접근이 제한되는 방향으로 간다.
+{
+	public:
+	Derived()
+	{
+		m_public = 234;
+		m_protected = 234;
+		// m_private = 234; // 이건 안됨
+	}
+};
+
+class GrandChild : public Derived
+{
+	public:
+	GrandChild()
+	{
+		Derived::m_public;
+	}
+};
+
+int main()
+{
+	Base base;
+	
+	base.m_public = 123;
+	// base.m_protected = 123; 이건 안됨
+	// base.m_privated = 123; 이거도 안됨
+	
+	Derived derived;
+	derived.m_public = 1234;
+	// derived.m_protected = 1234;
+	// derived.m_privated = 1234; 
+
+	return 0;
+}

@@ -1,0 +1,23 @@
+/*
+ 	객체들의 관계
+	Object Relationshiop
+	객체지향 프로그래밍을 할떄는 프로그램이 수행해야하는 기능들을 정의하고
+	기능을 수행할때 어떤 객체들이 어떤 업무를 나눠서 해야할지 설계해야한다.
+*/
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	/*
+		Part-of 구성(요소) Composition  두뇌는 육체의 일부이다.
+		Has-a (집합) Aggreagtion 어떤 사람이 자동차를 가지고 있다.
+		User-a (연계, 제호) 환자는 의사의 치료를 받는다.
+		Dependency (depends on) 나는 목발을 짚었다.
+	*/
+	
+	
+	return 0;
+}

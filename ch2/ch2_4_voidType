@@ -1,0 +1,32 @@
+/*
+	무치형, 보이드 (void)
+	어떤 데이터 타입은 많이차지해서 2바이트를 쓸 수도있고 
+	어떤 데이터 타입은 주소를 4바이트를 쓸 수도 있음.
+	근데 첫 주소의 규격은 똑같음 
+	데이터 타입의 사이즈가 다르더라도 주소를 표현하는 데이터 양은 동일함.
+*/
+
+#include <iostream>
+
+void my_function()
+{
+	
+}
+
+int main()
+{
+	using namespace std;
+	
+	// void my_void; // 보이드는 메모리를 차지하지 않기 떄문에 선언을 할 수 없음.
+	
+	int i = 123;
+	float f = 123.456f;
+	
+	void *my_void; // 근데 포인터로는 쓸 수 있음.
+	
+	my_void = (void*)&i; // 변수앞에 &는 주소를 의미함
+	cout << my_void << endl;
+	
+	my_void = (void*)&f;
+	cout << my_void << endl;
+}

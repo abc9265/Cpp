@@ -1,0 +1,35 @@
+/*
+	EnumerateClass	
+*/
+
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+	
+	// C++11에 도입됨
+	// namespace로 묶어주는것과 비슷함.
+	enum class Color
+	{
+		RED,
+		BLUE,
+	};
+
+	enum class Fruit
+	{
+		BANANA,
+		APPLE,
+	};
+	
+	Color color = Color::RED;
+	Fruit fruit = Fruit::BANANA;
+	
+	Color color1 = Color::RED;
+	Color color2 = Color::BLUE;
+	
+	
+	if (color1 == color2)
+		cout << "Same Color" << endl;
+	return 0;
+}

@@ -1,0 +1,59 @@
+/*
+ 	유도클래스에서 출력 연산자 사용하기
+	다형성을 활용할 때 출력연산자를 사용할 수 없음
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Base
+{
+	public:
+	Base() {}
+	
+	// friend func는 멤버가 아니므로 오버라이딩을 할 수 없다.
+	friend std::ostream& operator << (std::ostream & out, const Base &b)
+	{
+		return b.print(out);
+	}
+	
+	
+	// 얘를 자식클래스에서 오버라이딩해버림
+	// 기능을 위임받은 함수를 하나 만들고 이걸 오버라이딩 해버림 
+	// virtual 함수 여러가지를 만들어서 부품조립하듯이 쓰는 방법도 가끔 쓰임
+	// 이때만 사용하는게 아니고 일반적인 프로그래밍 전략에서도 자주 쓰이는 기법임
+	virtual std::ostream & print (std::ostream & out) const
+	{
+		cout << "Base";
+		return out;
+	}
+};
+
+class Derived : public Base
+{
+	public:
+	Derived() {}
+	
+	virtual std::ostream & print (std::ostream & out) const
+	{
+		cout << "Derived";
+		return out;
+	}
+	
+};
+
+int main()
+{
+	Base b;
+	cout << b << '\n';
+	
+	Derived d;
+	std::cout << d << '\n';
+	
+	Base &bref = d;
+	std::cout << bref << '\n';
+	
+	
+	return 0;
+}

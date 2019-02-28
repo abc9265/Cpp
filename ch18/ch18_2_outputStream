@@ -1,0 +1,53 @@
+/*
+	ostream으로 출력하기.
+*/
+
+#include <iostream>
+#include <iomanip>
+
+using namespace std;
+
+int main()
+{
+	cout.setf(std::ios::uppercase); // 대문자로 표기
+	cout.setf(std::ios::showpos); // setflag(), showpos() - 플러스 추가
+	
+	cout << 108 << endl;
+	
+	cout.unsetf(std::ios::showpos); // unsetflag
+	
+	cout << 109 << endl;
+	
+	cout.unsetf(std::ios::dec); // 10진수 모드를 끔
+	// cout << std::hex // 이렇게 해도 됨 // iomanip를 인클루드해야함
+	cout.setf(std::ios::hex, std::ios::basefield);// 16진수 모드를 킴, 뒤에 std::ios::basefield를하면 언셋을 안해도됨
+	cout << 108 << endl;
+	cout << 109 << endl;
+	
+	cout << std::dec; // 다시 십진수로
+	cout << 110 << endl;
+	
+	
+	cout << std::boolalpha; // 불값 true, false
+	cout << true << " " << false << endl;
+	
+	// cout << std::defaultfloat;
+	// cout << std::fixed; // 소수점이 고정됨
+	// cout << std::scientific; // 1.235e+02같은 형식으로 나옴
+	// cout << std::showpoint; // 자연수만 나오게 조정해도 .이 나옴
+	cout << std::setprecision(3) << 123.456 << endl;
+	cout << std::setprecision(4) << 123.456 << endl;
+	cout << std::setprecision(5) << 123.456 << endl;
+	cout << std::setprecision(6) << 123.456 << endl;
+	cout << std::setprecision(7) << 123.456 << endl;
+	
+	
+	cout << -12345 << endl;
+	cout.fill('*'); // 빈칸을 전부 별로 채워줌
+	cout << std::setw(10) << -12345 << endl; // 무조건 10자리를 채워라
+	cout << std::setw(10) << std::left << -12345 << endl;
+	cout << std::setw(10) << std::right << -12345 << endl;
+	cout << std::setw(10) << std::internal << -12345 << endl;
+	
+	return 0;
+}

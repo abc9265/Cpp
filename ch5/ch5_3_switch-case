@@ -1,0 +1,89 @@
+/*
+	switch case
+	특별한 방식으로 코딩했을때는 꼭 주석을 남겨두자.
+	블럭 잘 사용하고 브레이크 잘 사용하자.
+*/
+#include <iostream>
+
+using namespace std;
+
+enum class Colors
+{
+	BLACK,
+	WHITE,
+	RED,
+	GREEN,
+	BLUE,
+};
+
+void printColorName(Colors color)
+{
+	if(color == Colors::BLACK)
+		cout << "BLACK" << endl;
+	else if(color == Colors::WHITE)
+		cout << "WHITE" << endl;
+	else if(color == Colors::RED)
+		cout << "RED" << endl;
+	else if(color == Colors::GREEN)
+		cout << "GREEN" << endl;
+	else if(color == Colors::BLUE)
+		cout << "BLUE" << endl;
+
+	// break를 용도에따라서 넣는것을 잊지말자.
+	// int로 변환해서 숫자를 입력받아도 넣을 수 있게끔
+	switch (static_cast<int>(color))
+	{
+		case 0:
+			cout << "BLACK";
+			break;
+		case 1:
+			cout << "WHITE";
+			break;
+		case 2:
+			cout << "RED";
+			break;
+		case 3:
+			cout << "GREEN";
+			break;
+		case 4:
+			cout << "BLUE";
+			break;
+		default:
+			cout << "Undefined input " << endl;
+	}
+	
+	cout << endl;
+}
+
+
+int main()
+{
+	using namespace std;
+	
+	printColorName(Colors::WHITE);
+	
+	int x;
+	cin >> x;
+	
+	// 주의 사항
+	switch(x)
+	{
+		int y;
+			
+		case 0:
+			//... 함수호출
+			//... 변수선언??
+			//int a;
+			//int b = 5; // case label에 의해서 선언은 되는데 초기화가 안됨 
+			//케이스문 다음에서야 값을 넣어줄 수 있는것
+			// break 이후에 case안에서 선언된 변수는 사라짐
+			y = 5;
+			break;
+		case 1:
+			cout << y << endl;
+			
+			break;
+	}
+	
+	return 0;
+}

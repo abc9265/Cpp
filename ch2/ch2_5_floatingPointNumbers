@@ -1,0 +1,89 @@
+/*
+	부동소수점수
+	실수를 다루는법. 
+	점이 둥둥 떠다니면서 숫자를 바꾼다. 
+	float, double, Long double로 나뉨 
+	3부분을 나눔
+	부호(1)비트, 지수부분(8비트), 가수부분(나머지)를 사용함.
+	가수부분의 뒷부분은 작은숫자들의 합으로 표현되기 때문에 차이가 좀 있다.
+	메모리를 무작정 늘리면 메모리로 계산값을 보내야하는 cpu도 부담이고
+	메모리의 크기도 부담이다. 현재시점에서 double과 float는 차이가 있다.
+*/
+
+#include <iostream>
+#include <iomanip> // 입출력을 mainpulate함.
+#include <limits>
+#include <cmath>
+
+int main()
+{
+	using namespace std;
+	
+	float f;
+	double d;
+	long double ld;
+	
+	cout << sizeof(f) << endl;
+	cout << sizeof(d) << endl;
+	cout << sizeof(ld) << endl;
+	
+	cout << "limits: " << numeric_limits<float>::max() << endl;
+	cout << "limits: " << numeric_limits<double>::max() << endl;
+	cout << "limits: " << numeric_limits<long double>::max() << endl;
+	
+	// min은 최솟값의 절대값을 나타냄.
+	cout << "limits: " << numeric_limits<float>::min() << endl;
+	cout << "limits: " << numeric_limits<double>::min() << endl;
+	cout << "limits: " << numeric_limits<long double>::min() << endl;
+	
+	// lowest는 말그대로 최소값.
+	cout << "limits: " << numeric_limits<float>::lowest() << endl;
+	cout << "limits: " << numeric_limits<double>::lowest() << endl;
+	cout << "limits: " << numeric_limits<long double>::lowest() << endl;
+	
+	float a(3.141592); // 3.14 = 31.4 * 0.1
+	double b(3.141592);
+	long double lb(3.141592);
+	
+	cout << 3.14 << endl;
+	cout << 31.4e-1 << endl; // e -> 10^-1을 의미함 
+	cout << 31.4e-2 << endl;
+	cout << 31.4e1 << endl;
+	cout << 31.4e2 << endl;
+	
+	float z(123456789.0f); // 10 significant digits
+	double dz(0.1);
+	
+	cout << z << endl;
+	cout << std::setprecision(9) << endl;
+	cout << z << endl; // 정밀도를 잃어버릴수도 있다. 
+	
+	cout << dz << endl;
+	cout << std::setprecision(17) << endl;
+	cout << dz << endl; // 정확도가 다름
+	
+	double d1(1.0);
+	double d2(0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1 + 0.1);
+	
+	cout << d1 << endl;
+	cout << d2 << endl; // 오차가 누적됨.
+	
+	// 숫자가 아닌 숫자들 
+	double zero = 0.0;
+	double posinf = 5.0 / zero;
+	double neginf = -5.0 / zero;
+	double nan = zero / zero;
+	
+	// 변수가 가지고있는 값이 inf인지 확인할 수 있어야한다.
+	// cmath헤더의 std::isnan를 사용하면 좋다.
+	// cmath에는 std::isint도 있음.
+	// isnan이 1이면 True값임.
+	cout << "zeros: " << posinf << " " << std::isinf(posinf) << endl;
+	cout << "zeros: " <<  neginf << " " << std::isinf(neginf) << endl;
+	cout << "zeros: " <<  nan << " " << std::isnan(nan) << endl; 
+	cout << "zeros: " << 1.0 <<  std::isnan(1.0) << endl;
+	
+	
+	
+	return 0;
+}

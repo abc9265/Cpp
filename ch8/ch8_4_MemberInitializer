@@ -1,0 +1,64 @@
+/*
+	Member initializer List
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class B
+{
+	private:
+	int m_b;
+	
+	public:
+	B(const int& m_b_in)
+		:m_b(m_b_in)
+	{}
+};
+
+
+class Something
+{
+	// 멤버에서도 초기화하고 생성자에서도 초기화하면 
+	// 생성자가 우선이다.
+	private:
+	int m_i;
+	double m_d;
+	char m_c = 'F';
+	int m_arr[5] = {100, 200, 300, 400, 500};
+	B	m_b{1024}; 
+	
+	// c++ 17부터는 array도 초기화 가능
+	// member initialize후 생성자 중괄호내에서 또 초기화하면 중괄호내의것이 최종값이된다
+	public:
+	Something()
+		: m_i(1)
+		, m_d(3.14)
+		, m_c('a')
+		, m_arr{1, 2, 3, 4, 5}
+		, m_b(m_i - 1) // Member initializer
+	{}
+		
+		
+	void print()
+	{
+		cout << m_i << " " << m_d << " " << m_c << " " << endl;
+		for (auto& e : m_arr)
+			cout << e << " ";
+		cout << endl;
+	}
+	
+};
+
+
+
+
+int main()
+{
+	
+	Something some; 
+	some.print();
+	
+	return 0;
+}

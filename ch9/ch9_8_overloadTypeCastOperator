@@ -1,0 +1,69 @@
+/*
+	overload typecast
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Cents
+{
+	private:
+	int m_cents;
+	
+	public:
+	Cents(int cents = 0)
+	{
+		m_cents = cents;
+	}
+	
+	int getCents() {return m_cents;}
+	void setCents(int cents){ m_cents = cents; }
+	
+	operator int()
+	{
+		cout << "cast here" << endl;
+		return m_cents;
+	}
+};
+
+void printInt(const int& value)
+{
+	cout << value << endl;
+}
+
+
+// 좀 더 실용적인 예제
+class Dollar
+{
+	private:
+	int m_dollars = 0;
+	
+	public:
+	Dollar(const int& input) : m_dollars(input) {}
+	
+	operator Cents()
+	{
+		return Cents(m_dollars*100);
+	}
+};
+
+int main()
+{
+	Cents cents(7);
+	
+	// 다음 함수들과 전부 같다.
+	// int value = (int)cast;
+	// value = int(cast);
+	// value = static_cast<int>(cents);
+	
+	printInt(cents);
+	
+	
+	Dollar dol(2);
+	Cents cents2 = dol;
+	
+	printInt(cents2);
+	
+	return 0;
+}

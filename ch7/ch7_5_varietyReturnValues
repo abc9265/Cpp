@@ -1,0 +1,117 @@
+/*
+	Retuning Values, Tuple
+	return by value
+*/
+
+#include <iostream>
+#include <array>
+#include <tuple>
+
+using namespace std;
+
+// 튜플, 사용자 자료 정의형처럼 됨
+std::tuple<int, double> getTuple()
+{
+	int a = 10;
+	int d = 3.14;
+	return std::make_tuple(a, d);
+}
+
+struct S
+{
+	int a, b, c, d;
+};
+
+S getStruct()
+{
+	S my_s{1, 2, 3, 4};
+}
+
+
+int getValue(int x)
+{
+	// return by value
+	int value = x * 2;
+	return value;
+}
+
+int* getValue2(int x)
+{
+	// return by value
+	int value = x * 2;
+	return &value;
+}
+
+int* allocateMemory(int size)
+{
+	return new int[size];
+}
+
+int& get(std::array<int, 100>& my_array, int ix)
+{
+	return my_array[ix];
+}
+
+int main()
+{
+	// return by value
+	// 가장 간단하고 안전하지만 복사가 여러번 일어나서 속도가 조금 떨어짐
+	int value = getValue(3);
+	
+	// return by address
+	// 두가지 방법
+	// 1. 주소로 받아오는 방법
+	// 2. 디 레퍼런싱을해서 받아오는 방법 
+	// 디 레퍼런싱해서 값으로 받는것은 권장하지 않음.
+	// 사라질 변수를 디 레퍼런싱하는게 아무래도 안전하지 않기때문.
+	int value2 = *getValue2(3);
+	
+	// 주소를 직접받는것은 더욱 위험함 
+	// 변수는 사라졌는데 메모리주소만 알고있기떄문
+	int *value3 = getValue2(3); 
+	
+	
+	// 동적할당하는부분을 함수로 뽑아내고싶을 때가 생김.
+	// 어떤 메모리를 생성하고 메모리의 포인터를 함수의 리턴값을 받아오는 패턴이 있음.
+	// 팩토리 패턴. 
+	// 위험한게있음. 
+	// new가있으면 쌍이되는 delete가 있어야하는데
+	// delete가 어디서 해야할지 막막할 수 있는데 
+	// 끝에서 해제해줘야함.
+	int *array = allocateMemory(1024);
+	delete[] array;
+	
+	// return by reference
+	// 받는쪽에서도 레퍼런스로 받아버리면 
+	// 메모리가 죽어버리면 쓰레기값이 나와버림 
+	// int &value4 = getValue2(5);
+	// 유용하게 쓰는 return by reference
+	// 별도의 함수가 배열내의 값을 바꾸도록 만듬
+	// 자주 쓰이는 패턴임 
+	// 메모리는 어딘가에 안전하게 저장되어있고 그상태에서 레퍼런스만 보내주고
+	// 변수처럼 편리하게 작업하도록사용
+	std::array<int, 100> my_array;
+	my_array[30] = 10;
+	
+	get(my_array, 30) *= 1024;
+	
+	cout << my_array[30] << endl;
+	
+	// return by struct
+	// 함수하나를 만들때마다 구조체를 만든다고하면 크기가 제법 큼
+	S my_s = getStruct(); // 구조체를 통해서 리턴값을 가져옴
+	my_s.a;
+	
+	// return by tuple
+	// 이런식으로 하는거도 좀 불편해서 C++17에서는 
+	std::tuple<int, double> my_tp = getTuple();
+	cout << std::get<0>(my_tp) << endl; // a
+	cout << std::get<1>(my_tp) << endl; // d
+	
+	// 이런식으로 C++17에서는 쓸 수 있다.
+	// auto[a, d] = getTuple();
+	// cout << a << endl;
+	// cout << d << endl;
+	
+	return 0;
+}

@@ -1,0 +1,52 @@
+/*
+	Multi-dimensional Array
+	메모리는 1차원적인 메모리 구조를 가지고있는데
+	2차원처럼 사용할 수 있게 해주는것 - 다차원 배열
+*/
+
+
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+	
+	const int num_rows = 3;
+	const int num_columns = 5;
+	
+	for (int row = 0; row < num_rows; ++row)
+	{
+		for (int col = 0; col < num_columns; ++col)
+			cout << '[' << row << ']' << '[' << col << ']' << '\t';
+		
+		cout << endl;
+	}
+	
+	// 2차원 배열 선언
+	// 메모리 구조내에선 일렬로 쭉 늘어선 방식임
+	// row-major <-> column-major 
+	// 이건 row-major구조임 
+	// 값을 하나하나 전부 칠필요는 없이 비워두면 0으로 초기화됨
+	// 두번째꺼는 무조건 넣어야함 안넣으면 안됌
+	// 텐-서 -> 다차원 어레이를 이용해서 표현함
+	// 행렬 * 벡터등을 2차원 어레이등으로 구현하면 좋은 연습문제가 된다.
+	int array[num_rows][num_columns] // = , C++ 11 이후부터 이렇게 써도 됨
+	{
+		{1, 2, 3, 4, 5}, // row 0
+		{6, 7, 8, 9, 10}, // row 1
+		{11, 12, 13, 14, 15} // row 2
+	};
+	
+	for(int row = 0; row < num_rows; ++row)
+	{
+		for(int col = 0; col < num_columns; ++col)
+			// cout << '[' << row << ']' << '[' << col << ']' << '\t';
+			// cout << array[row][col] << '\t'
+			cout << &array[row][col] << '\t';
+		
+		cout << endl;
+	}
+
+	
+	return 0;
+}

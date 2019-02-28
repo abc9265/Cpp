@@ -1,0 +1,70 @@
+/*
+	function Overloading
+	동일한 이름의 함수를 여러개 만드는것
+*/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+typedef int my_int;
+
+// typedef를 이용해도 같은 타입으로 인식된다.
+void print(int x) {}
+// void print(my_int x) {} 
+
+void print(char *value) {}
+// main내에서 print('a')라고 할시 int로 인식함
+// print("a")라고하면 매치되는게 아예 없다고함
+
+
+void print(unsigned int value) {}
+void print(float value) {}
+// print(0);
+// print(3.141592);
+// print('a');
+// 셋중에 어떤걸해도 바꿀수있어서 컴파일러가 혼란에빠짐. (ambiguous) 모호함
+// 캐스팅을 이용해 깔끔하게 넣거나 0u, 3.141592f와 같이 명확하게 지정할 것.
+
+
+// 기능이 유사한경우 함수 오버로딩을 사용한다.
+// 함수가 같다 다르다는 매개변수가 다르다면 다른함수처럼 정의를 해버림
+// 주어진 인자와 매개변수의 조합이 가장 좋은걸 찾아서 실행을 시켜줌
+// 어떤 add를 사용할지는 컴파일할 때 결정되어야한다.
+// 파라미터가 같은 함수가 있다면 문제가 생긴다.
+int add(int x, int y)
+{
+	return x + y;
+}
+
+
+double add(double x, double y)
+{
+	return x + y;
+}
+
+// 리턴값가지고는 구분이 안감.a
+// 1. 회피하는방법. 이름을 바꿈 오버로딩은 아님
+// 2. 함수 오버로딩에서 함수를 구분짓는것은 매개변수니까 매개변수를 바꿈
+// 참조를 사용하면 사용하는 함수 내에서 입력인지 값을 가져오는건지 좀 헷갈림
+void getRandom(int &x) {}
+
+
+void getRandom(double &x) {}
+
+
+int main()
+{
+	
+	add(1, 2);
+	add(3.0, 4.0);
+	
+	int x;
+	getRandom(x);
+	
+	// int x = getRandomInt(x);
+	// int x = getRandom(int()); // 뭔가 넣어주긴 넣어줘야 오버로딩을 할 수 있다.
+	
+	return 0;
+}

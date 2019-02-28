@@ -1,0 +1,89 @@
+/*
+	Passing Arguments by Reference(Call by Reference)
+*/
+
+#include <iostream>
+#include <cmath> // sin(), cos()
+#include <vector>
+
+using namespace std;
+
+// Refence로 전달을 했기 때문에 그대로 남아있게된다.
+// 값에 의한 호출에서는 함수안에서 새롭게 정의를하고 복사를 하게 되는데
+// 참조에 의한 호출에서는 그대로 넘기기는것이기 떄문에 주소가 변하지 않는다.
+void addOne(int &y)
+{
+	cout << y << " " << &y << endl;
+	y = y + 1;
+}
+
+
+// 리턴값을 줘야할경우 CallbyReference를 이용해 구현할 수도있고
+// 실제로 많이 쓰이는 기법이다.
+// 한번 계산되고 말 것은 const로 박아놔버린다. 그래야 실수가 적음.
+void getSinCos(const double &degrees, double &sin_out, double &cos_out)
+{
+	static const double pi = 3.141592;
+	const double radians = degrees * pi / 180.0;
+	sin_out = std::sin(radians);
+	cos_out = std::cos(radians);
+}
+
+
+// 요즘 코딩 트렌드는 입력을 const 머머 &이런식으로 집어넣고 
+// return 값을 받을때는 여러개의 리턴값을 구현하는게 복잡하지 않아짐.
+// 그래서 입력만 넣는경우가 많음.
+// 입력형태는 대부분 const ... &parameter로 하게됨
+// 포인터를 보낼경우 (int *) &ptr라고 생각하면 편함
+// typedef int* pint이거랑 같음
+// 헷갈릴때 typedef를 사용하면 좋음
+void foo (int *&ptr) 
+{
+	cout << ptr << " " << &ptr << endl;
+}
+
+//void printElement(int (&arr)[4])
+void printElement(const vector<int>& arr)
+{
+	
+}
+
+
+int main()
+{
+	int x = 5; 
+	
+	cout << x << " " << &x << endl;
+	
+	addOne(x);
+	
+	cout << x << " " << &x << endl;
+	
+	double sin(0.0);
+	double cos(0.0);
+	
+	getSinCos(30.0, sin, cos);
+	
+	cout << "sin: " << sin << " " << "cos : " << cos << endl;
+	
+	// foo(6); -> 컴파일 에러. 
+	// 리터럴일경우 문제가 생김. 
+
+	// 포인터에 대한 레퍼런스를 보낼 수도 있다.
+	int a = 5;
+	int *ptr = &a;
+	
+	cout << ptr << " " << &ptr << endl;
+	
+	foo(ptr);
+	
+	// 배열 레퍼런스 보내기 
+	// 동적을 할경우가 많은데 그럴때는 클래스를 만들어서 보내버리기때문에
+	// 이렇게 보낼일이 별로 없다.
+	int arr[]{1, 2, 3, 4}; 
+	//printElement(arr);
+	
+	vector<int> arr2{1, 2, 3, 4};
+	
+	return 0;
+}

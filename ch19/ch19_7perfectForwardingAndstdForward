@@ -1,0 +1,52 @@
+/*
+	Perfect Forwarding And std::forward
+*/
+
+#include <iostream>
+#include <vector>
+#include <utility> // std::forward
+using namespace std;
+
+struct Mystruct
+{};
+
+void func(Mystruct& s)
+{
+	cout << "Pass by L-ref" << endl;
+}
+
+void func(Mystruct&& s)
+{
+	cout << "Pass by R-ref" << endl;
+}
+
+// void func(Mystruct s)
+//{
+//	cout << "Pass by Value" << endl;
+//}
+
+
+// Template 구현시 R-value와 L-value 구분불가
+// Templatize되면서 L-value인지 R-value인지가 날아가버림
+// Perfect Forwarding을 위해 파라미터를 R-value로 받는다
+template<typename T>
+void func_wrapper(T&& t)
+{
+	// forward는 이름과 실제 하는 일이 조금 다르다. 
+	// 들어오는 t를 L-value로 들어오면 L-value로 R-value로 들어오면 R-value로 리턴한다.
+	func(std::forward<T>(t));
+}
+
+
+int main()
+{
+	Mystruct s;
+	
+	// func(s); 
+	// func(Mystruct());
+	
+	func_wrapper(s);
+	func_wrapper(Mystruct());
+	
+	return 0;
+}

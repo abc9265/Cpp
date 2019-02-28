@@ -1,0 +1,98 @@
+/*
+ 	예외처리와 스택 되감기(stack unwinding)
+	불러진 함수들의 가장 안쪽에있는 함수가 예외를 던진다면 스택을 되감아가면서
+	어디서 처리를할지 알아보게됨
+*/
+
+#include <iostream>
+
+using namespace std;
+
+void first();
+void second();
+void third();
+void last();
+
+int main()
+{
+	cout << "Start " << endl;
+	
+	try
+	{
+		first();
+	}
+	catch(int)
+	{
+		// cout cerr clog등등이있음 기능상 큰차이는 없고 
+		// 화면에 출력되는 채널이 여러가지고 있다고 보면됨
+		cerr << "main caught int exception" << endl;
+	}
+	// uncaught excptions
+	
+	catch(...) // catch-all handlers
+	{
+		cerr << "main caught ellipses excpetion" << endl;
+	}
+	 
+	
+	return 0;
+}
+	
+void first()
+{
+	cout << "first" << endl;
+	
+	try
+	{
+		second();
+	}
+	
+	// last에서 넘어온 throw를 thrid와 second에서 처리 못했으므로 여기까지 오류가 넘어옴
+	// 만약 여기서 처리를 못하면 main까지 넘어갈것
+	catch (int)
+	{
+		cerr << "first caught int exception" << endl;
+	}
+	
+	cout << "End first " << endl;
+}
+
+void second()
+{
+	cout << "Second" << endl;
+	
+	try
+	{
+		third();
+	}
+	catch(double)
+	{
+		cerr << "Second caught double exception" << endl;
+	}
+	
+	cout << "End Second" << endl;
+}
+
+void third()
+{
+	cout << "Third" << endl;
+	
+	last();
+	
+	cout << "End Third" << endl;
+}
+
+// void last() throw(int) exception specifier
+// void last() throw(...) exception specifier
+// void last() throw() 이런식으로 쓰면 예외를 던지지 않는다는 뜻임 
+// 타입을 뭘 넣던간에 ...로 본다고함
+// 보통은 사용을 잘 안한다고함
+void last()
+{
+	cout << "last " << endl;
+	cout << "Throws exception" << endl;
+	
+	throw -1;
+	
+	cout << "End last " << endl;
+}

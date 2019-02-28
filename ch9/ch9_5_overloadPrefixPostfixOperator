@@ -1,0 +1,65 @@
+/*
+	증감연산자 오버로딩하기 ( ++, -- )
+	전위형이냐 후위형이냐에 따라서 좀 다름
+*/
+#include <iostream>
+
+using namespace std;
+
+class Digit
+{
+	private:
+	int m_digit;
+	
+	public:
+	Digit(int digit = 0) : m_digit(digit) {}
+	
+	
+	friend ostream& operator << (ostream &out, Digit &d)
+	{
+		out << d.m_digit;
+		return out;
+	}
+	
+	// prefix
+	Digit & operator ++ ()
+	{
+		++ m_digit;
+		
+		return *this;
+	}
+	
+	// postfix 
+	// 관습으로 생각하면 됨
+	// 인스턴스로 안하고 그냥 opertator로 보냄 
+	// 더미로 인트를 아무거나 보냄
+	Digit operator ++ (int)
+	{
+		Digit temp(m_digit);
+		++(*this);
+		return temp;
+	}
+};
+
+
+int main()
+{
+	int a = 10;
+	
+	/*
+	cout << ++a << endl;
+	cout << a << endl;
+	cout << a++ << endl;
+	cout << a << endl;
+	*/
+	
+	Digit d(5);
+	
+	cout << ++d << endl;
+	cout << d << endl;
+	
+	cout << d++ << endl;
+	cout << d << endl;
+	
+	return 0;
+}

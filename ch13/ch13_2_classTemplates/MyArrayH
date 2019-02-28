@@ -1,0 +1,50 @@
+#pragma once
+
+#include <assert.h>
+#include <iostream>
+
+template<typename T> // 어떠한 타입에 대한 매개변수다.
+
+class MyArray
+{
+	private:
+	int m_length;
+	T *m_data; // int타입의 데이터를 담기위해서 포인터로 선언
+	
+	public:
+	MyArray()
+	{
+		m_length = 0;
+		m_data = nullptr;
+	}
+	
+	MyArray(int length)
+	{
+		m_data = new T [length];
+		m_length = length;
+	}
+	
+	~MyArray()
+	{
+		delete[] m_data;
+	}
+	
+	T & operator[] (int index)
+	{
+		assert(index >= 0 && index < m_length);
+		return m_data[index];
+	}
+	
+	int getLength() 
+	{
+		return m_length; 
+	}
+	// 특정한 데이터타입으로 인스턴시에이션으로 해야하는지 
+	// CPP파일로 따로빼게되면 MyArray.h를 인클루드하고있으므로
+	// CPP파일은 모르게되서 링킹에러가 발생한다.
+	// 특정한타입으로 인스턴시 에이션해야한다고 알려줘야한다
+	void print();
+	
+	
+	
+};

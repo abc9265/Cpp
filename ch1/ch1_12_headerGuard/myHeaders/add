@@ -1,0 +1,8 @@
+// 헤더에다 바디를 넣어도 상관없지만
+// 가급적이면 cpp파일로 나누어주는게 나음
+#pragma once // 헤더가드. 전처리기의 일종.
+
+int add(int a, int b)
+{
+	return a + b;
+}

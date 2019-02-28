@@ -1,0 +1,40 @@
+/*
+	증가/감소 연산자
+	Increment/decrement
+*/
+
+#include <iostream>
+
+int add(int a, int b)
+{
+	return a + b;
+}
+
+int main()
+{
+	using namespace std;
+	
+	
+	// 앞에 ++가 붙는경우는 먼저 더한뒤에 출력한것이고
+	// cout에다가 x를 보낸다음에 이거하세요 한다고 한 다음에
+	// x에 1에 더해지는거 까지 작동한것임 
+	// 스트림에 x를 보낸다음에 더하기를 하는것임 그래서 해당라인에서는 더하기가 안됨.
+	int x = 6, y = 6;
+	cout << x << " " << y << endl;
+	cout << ++x << " " << --y << endl;
+	cout << x << " " << y << endl; 
+	cout << x++ << " " << y-- << endl; // 이줄에서 계산을 했는데도 그대로임
+	cout << x << " " << y << endl; // 이줄에서 적용됨
+	
+	int a = 1;
+	int b = add(a, ++a); // 이렇게는 쓰지 마세요. 컴파일러마다 다름
+	
+	cout << "b: " << b << endl;
+	
+	int c = 1, d = 2;
+	int s = add(c, ++d);
+	
+	cout << "s: " << s << endl;
+	
+	return 0;
+}

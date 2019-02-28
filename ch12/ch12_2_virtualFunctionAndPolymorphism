@@ -1,0 +1,62 @@
+/*
+ 	Virtual Functions And Polymorphism
+	가상함수와 다형성
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class A 
+{
+	public:
+	virtual void print() { cout << " A " << endl;}
+};
+
+
+class B : public A 
+{
+	public:
+	void print() { cout << " B " << endl;}
+};
+
+
+class C : public B
+{
+	public:
+	void print() { cout << " C " << endl;}
+};
+
+class D : public C
+{
+	public:
+	void print() { cout << " D " << endl;}
+};
+
+
+int main()
+{
+	A a;
+	a.print();
+	
+	B b;
+	b.print();
+	
+	C c;
+	c.print();
+	
+	D d;
+	d.print();
+	
+	cout << "----------------------" << endl;
+	
+	// 상속된 함수를 일반화된 클래스로 형변환시키면 일반화된 클래스처럼 작동한다.
+	// virtual함수를 오버라이딩한다고 생각하면됨
+	// 스택에서 쌓여서 사용하는게아닌 virtual테이블에있는걸 찾아서 사용하는 방식이기때문에 
+	// 퍼포먼스에 문제가 생길 수 있으므로 호출이 빈번하게 사용되는 함수에 사용하면 안된다.
+	A &ref = c;
+	ref.print();
+	
+	
+	return 0;
+}

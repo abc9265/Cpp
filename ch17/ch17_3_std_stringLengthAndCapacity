@@ -1,0 +1,32 @@
+/*
+	std::string의 길이와 용량
+*/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+int main()
+{
+	string my_str("01234567");
+	
+	// string타입은 널캐릭터를 가지고있지 않음. 내부에 길이의 값을 가지고 있기 떄문
+	cout << my_str.size() << endl;
+	cout << std::boolalpha; // true, false로 나오도록 함.
+	cout << my_str.empty() << endl;
+	
+	cout << "---------------------------------" << endl;
+	
+	// capacity. 
+	cout << my_str.length() << endl;
+	cout << my_str.size() << endl;
+	// 스트링도 vector와 마찬가지로 new allocation을 하지않으려고 하기에 여분의 용량을 두는경우가 많다.
+	cout << my_str.capacity() << endl;
+	cout << my_str.max_size() << endl;
+	
+	my_str.reserve(1000); // 미리 capacity를 확보해둘 수 있음.
+	cout << my_str.capacity() << endl;
+	
+	return 0;
+}

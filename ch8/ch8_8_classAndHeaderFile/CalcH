@@ -1,0 +1,21 @@
+// 클래스이름과 헤더파일 이름을 같이 만든다
+#pragma once
+
+#include <iostream>
+
+// chiaing member Functions
+// 헤더파일에서 using namespace같은걸 쓰지말자. 인클루드하는 파일이 전부 영향을 받음
+class Calc
+{
+	private:
+	int m_value;
+	
+	public:
+	Calc(int init_value)
+
+	Calc& add(int value)
+	Calc& sub(int value)
+	Calc& mult(int value)
+	void print()
+
+};

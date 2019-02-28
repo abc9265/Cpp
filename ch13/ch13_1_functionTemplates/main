@@ -1,0 +1,41 @@
+/*
+ 	Function Templates
+	함수 템플릿 
+*/
+
+#include <iostream>
+#include "Cents.h"
+// typename 변수명
+// 클래스를 쓸 수도 이씅ㅁ
+// typename하고 class하고 문법상 큰 차이는 없다.
+// template<class T>
+// 컴파일러가 알아서 해줌
+// userDefined Type도 정의가능 
+template<typename T>
+
+// 반복되는부분이 정말 많음
+// 자동으로 코드를 생성하게 할 수 있는 방법이 없을까?
+// --> 템플릿 
+// 이거하나로 int double char등등이 다 됨
+T getMax(T x, T y)
+{
+	return ( x > y ) ? x : y;
+}
+
+using namespace std;
+
+int main()
+{
+	// template로 만든 function 이런것들을
+	// 일반적인 T말고 T에대해서 정의해놓은것을 
+	// 특정한 데이터타입에 대해서 실제로 만드는것을 
+	// instanciation이라고부름 
+	std::cout << getMax(1, 2) << std::endl;
+	std::cout << getMax(3.14, 1.592) << std::endl;
+	std::cout << getMax(1.0f, 3.4f) << std::endl;
+	
+	// 사용하기위해선 오퍼레이터들을 overloading해야한다.
+	std::cout << getMax(Cents(5), Cents(9)) << std::endl;
+	
+	return 0;
+}

@@ -1,0 +1,71 @@
+/*
+	anonymous Instance
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Cents
+{
+	private:
+	int m_cents;
+	
+	public:
+	Cents(int cents) { m_cents = cents;}
+	
+	int getCents() const {return m_cents;}
+};
+
+
+class A
+{
+	public:
+	int m_value;
+	
+	
+	A(const int& m_value_in)
+	{
+		m_value = m_value_in;
+		cout << "Constructor" << endl;
+	}
+	
+	
+	void print()
+	{
+		cout << m_value << endl;
+	}
+	
+	
+	~A()
+	{
+		cout << "Destructor" << endl;
+	}
+};
+
+Cents add(const Cents &c1, const Cents &c2)
+{
+	return Cents(c1.getCents() + c2.getCents());
+};
+
+
+int main()
+{
+	// 이렇게하면 좀 번거로움
+	// A a;
+	// a.print();
+	
+	
+	// 이렇게해도 동일하게 작동한다.
+	// 다만 재사용할수는 없다.
+	// anonymous Instance
+	A(1).print();
+	
+	
+	cout << add(Cents(6), Cents(8)).getCents() << endl;
+	
+	// 과연 이게 캐스팅인가.
+	cout << int(6) + int(8) << endl;
+	
+	return 0;
+}

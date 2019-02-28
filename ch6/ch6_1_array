@@ -1,0 +1,80 @@
+/*
+	Array
+	여러개가 쭉 나열되어있을 때 array라한다.
+	학생의 수가 여러개로 나열되어 있을 때 
+	이제까지는 하나하나 다 선언하는 수 밖에 없었음.
+	이번부턴 Array로!
+	
+	나중에 너무 커서 일렬로 된 메모리를 받아오지 못할 수 있음. 
+*/
+
+
+#include <iostream>
+
+#define NUM_STUDENTS 100000
+
+using namespace std;
+
+struct Rectangle
+{
+	int length;
+	int width;
+};
+
+enum StudentName
+{
+	JACKJACK,
+	DASH,
+	VIOLET,
+	NUM_STUDENTS,
+};
+
+
+int main()
+{
+	int one_student_score; // 1 variable
+	int student_scores[5]; // 5 int
+	
+	cout << sizeof(one_student_score) << endl;
+	cout << sizeof(student_scores) << endl;
+	
+	one_student_score = 100;
+	student_scores[0] = 100; // 1st element
+	student_scores[1] = 80;  // 2nd element
+	student_scores[2] = 90;  // 3rd element
+	student_scores[3] = 50;  // 4th element
+	student_scores[4] = 0;  // 5th element
+	
+	cout << sizeof(Rectangle) << endl;
+	
+	Rectangle rect_arr[10];
+	// 뒤에가서 함수 파라미터에서 주고받고 하는거에서 문제가 생길 수 있으나
+	// 그건 뒤에가서 다룰것임
+	cout << sizeof(rect_arr) << endl; 
+	
+	// 이런식으로 초기화 할 수도 있음.
+	int my_array[5] = {1, 2, };
+	int my_array2[] = {1, 2, 3, 4, 5};
+	int my_array3[] {1, 2, 3, 4, 5}; // C++ 11부터
+	
+	cout << my_array[0] << endl;
+	cout << my_array[1] << endl;
+	cout << my_array[2] << endl;
+	cout << my_array[3] << endl;
+	cout << my_array[4] << endl;
+	
+	// 이렇게 쓸 수도 있으나 권장하지는 않음
+	cout << my_array[JACKJACK] << endl; 
+	
+	// int num_students = 0;
+	// cin >> num_students;
+	
+	// 이렇게 하면 런타임에 값이 결정되는데
+	// 브라켓을 이용한 array는 컴파일시에 반드시 결정되야하기에
+	// 오류가 난다.
+	// int student_scores2[num_students]; // 이렇게 쓸 수는 없음
+	// 나중에 동적할당을 쓰기 떄문에 권장하진 이렇게 쓰는것을 않음
+	// int students_scores[NUM_STUDENTS]; 
+	// const로 할 경우에는 넣을 수 있다.
+	return 0;
+}

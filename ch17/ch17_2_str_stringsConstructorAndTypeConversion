@@ -1,0 +1,83 @@
+/*
+	std::string의 생성자들과 형변환
+*/
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <sstream> // stringstream의 약자
+
+
+template <typename T>
+std::string Tostring(T x)
+{
+	std::ostringstream osstream;
+	
+	osstream << x;
+	return osstream.str(); // 스트림에 들어온 뭐든간에 string으로 바꿔서 리턴함
+}
+
+
+template <typename T>
+bool FromString(const std::string & str, T &x)
+{
+	// inputstringstream
+	std::istringstream isstream(str); // stream을 초기화할때 string을 넣어 초기화함
+	return (isstream >> x) ? true : false;
+}
+
+
+using namespace std;
+
+int main()
+{
+	// std::string my_string("my string");
+	const char * my_string = "my string";
+	
+	// 두번째는 앞에 세개를 자르도록 세번째는 그다음의 두글자만 가져오게 됨
+	
+	// A 10개
+	//std::string second_string(10, 'A');
+	
+	// container iterator를 쓸 수도 있음.
+	std::vector<char> vec;
+	for(auto & e : "Today is a good day")
+		vec.push_back(e);
+	std::string second_string(vec.begin(), vec.end());
+	
+	std::string third_string(vec.begin(), std::find(vec.begin(), vec.end(), 'g'));
+	
+	std::cout << third_string << std::endl;
+	
+	
+	
+	std::cout << "---------------------------" << std::endl;
+	
+	// 정수는 문자열로 바꿔줄 수 없음.
+	// std::string my_str(4);
+	// std::to_string을 이용하면 정수를 문자열로 바꿔줄 수 있다. 
+	std::string my_str(std::to_string(1004));
+	
+	my_str += std::to_string(128);
+	
+	std::cout << my_str << std::endl;
+	
+	// 문자열로 저장된 변수를 다시 정수로
+	// string to integer -> stoi
+	float f = std::stof(my_str);
+	std::cout << f << std::endl;
+
+	// 좀 특별한 방식. 
+	std::string my_str2(Tostring(3.141592));
+	std::cout << my_str2 << endl;
+	
+	
+	double d;
+	
+	if(FromString(my_str2, d))
+		std::cout << d << std::endl;
+	else
+		std::cout << "Cannot convert string to double";
+	return 0;
+}

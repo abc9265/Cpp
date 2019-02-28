@@ -1,0 +1,80 @@
+/*
+	symbolic constants
+	상수에는 literal과 symbolic으로 나뉨. 
+	엄밀한 literal과 두루뭉술한 symbolic...
+*/
+
+#include <iostream>
+#include "MY_CONSTANTS.h"
+
+#define PRICE_PER_ITEM 30
+
+void printNumber(const int my_number)
+{
+	using namespace std;
+	cout << my_number << endl;
+}
+
+int main()
+{
+	using namespace std;
+	
+	// 중간에 다른 값으로 변하기를 원하지 않아서 const로 고정함
+	// 아주 특별한 경우 강제로 바꿀수도 있긴한데 어떠한 경우에도 추천 X
+	const double gravity{9.8}; 
+	
+	// const는 앞에붙이나 위에붙이나 상관없음 
+	// 뒤에가면(포인터) 의미가 다르기도한데 일반적으로는 상관없다.
+	// 상수는 뒤에가면 수정을 할 수 없기 때문에 initialization을 필수로 해야한다.
+	float const weight{8.6};
+	
+	// 호출시 123이라는 argument가 중괄호안의 변수에 my_number가 선언이 되고 
+	// 그안에 123이 들어가는 형태다. 
+	// 근데 안에 들어가는 값은 일반적으로 바꾸는 일이 드물고 
+	// 내부에서 다른 프로그래머가 바꾸는것을 방지하기 위해서
+	// 파라미터를 상수로 넣는편이 좋다.
+	// const int& my_number 이런식이 훨씬 많음.
+	printNumber(123);
+	
+	
+	// special_number에 어떤값이 들어올지는
+	// 실행전까지 알 수가 없음.
+	// 사용자가 입력 후에 special_number가 결정됨
+	// 컴파일할 때 결정되는것 - 컴파일상수
+	// 런타임 시 결정되는 상수 - 런타임상수
+	// 런타임 - 실행하는 도중, 컴파일 - 컴파일하는 도중.
+	// constexpr - constexpression - 컴파일러가 컴파일상수인지 체킹하겠다는 뜻 
+	// 물론 런타임상수에는 넣으면 안됌.
+	constexpr int my_const2(123);
+	
+	int number;
+	cin >> number;
+	
+	const int special_number(number); // 변수로 상수를 초기화
+	cout << special_number << endl;
+	
+	int num_item2 = 1234;
+	const int price_per_item = 30;
+	
+	
+	// C에선 상수대체를 매크로로 함. cpp에선 이 목적으로는 잘 안씀.
+	// 그 이유는 1. 디버깅이 힘들고
+	// 다른 코드들에게도 상수가 영향을 끼치기때문이다.
+	int price = num_item2 * PRICE_PER_ITEM; // 이런식으론 안쓰는게좋다.
+	int price2 = num_item2 * price_per_item; // 대신 이런식으로!
+	
+	
+	/*
+		물리엔진같은 특별한 경우를 제외하면
+		상수를 눈에 띄기 하기위해 이름앞에 따로 무언가를 쓰지 않는다
+		대신 따로 모아둠 MY_CONSTANTS.h파일처럼 정리함
+		이리해두면 재사용도 가능해서 좋음
+		뒤로가서 객체지향 프로그래밍할 때 똑같이 적용된다.
+	*/
+	double radius;
+	cin >> radius;
+	double circumference = 2.0 * radius * constants::pi;
+	
+	return 0;
+}
+

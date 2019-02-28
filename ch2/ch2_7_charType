@@ -1,0 +1,90 @@
+/*
+	문자형 char Type
+	아스키 테이블에서 값들을 낼때 
+	\를 붙이게된다. 
+*/
+#include <iostream>
+#include <limits>
+
+int main()
+{
+	using namespace std;
+	
+	char c1(65);
+	char c2('A'); // 한 글자를 표현할땐 ''를 사용하고 문자열은 ""를 사용한다. (quote)
+	
+	// 문자열 배열시는 char를 여러개를 사용하는 법이 있고
+	// string 라이브러리를 사용하는 경우가 있다.
+	// char 타입은 기본적으로 문자로 저장된다.
+	cout << c1 << " " << c2 << " " << int(c1) << " " << int(c2) << endl;
+	
+	// casting: 다른 타입으로 변환하는것 
+	// C-style casting
+	cout << (char)65 << endl;
+	cout << (int)'A' << endl;
+	
+	// Cpp-style casting
+	cout << char(65) << endl;
+	cout << int('A') << endl;
+	
+	// 기능적으로는 위에 두개와 같다. 
+	// 위에 두개는 강제로 변환한다는 느낌이 강하고
+	// 밑에꺼는 문제없나 컴파일러에게 한번 확인하고 변환한다는 느낌이 강하다.
+	cout << static_cast<char>(65) << endl;
+	cout << static_cast<int>('A') << endl;
+	
+	char ch(97);
+	cout << ch << endl;
+	cout << static_cast<int>(ch) << endl;
+	cout << ch << endl;
+	
+	// 한번에 두글자 입력하면 한글자만 받아지나요?
+	// 아니오. 스트림오퍼레이터는 한번에 데이터를 처리 못하면 버퍼에 저장합니다.
+	// 
+	char c3(65);
+	
+	cout << "char -> int 변환기. \n" << "값을 입력해주십시오. : " ;
+	cin >> c3;
+	cout << c3 << " " << static_cast<int>(c3) << endl;
+
+	// 여러값 (ex. 123)을 입력시 나머지 값이 이쪽에서 처리된다.
+	cin >> c3;
+	cout << c3 << " " << static_cast<int>(c3) << endl;
+	
+	cin >> c3;
+	cout << c3 << " " << static_cast<int>(c3) << endl;
+
+	
+	char c4(65);
+	
+	cout << sizeof(char) << endl;
+	cout << (int)std::numeric_limits<char>::max() << endl;
+	cout << (int)std::numeric_limits<char>::lowest() << endl;
+	
+	cout << (int)std::numeric_limits<unsigned char>::max() << endl;
+	cout << (int)std::numeric_limits<unsigned char>::lowest() << endl;
+
+	
+	// escape sequence
+	// \n는 문자에 불과하고
+	// endl은 남아있는 버퍼를 전부 출력하고 줄을 바꾼다.
+	// 엄청나게 긴 문자열에서 이걸 확인할 수 있음.
+	// std::flush; - 줄바꿈을 안하고 버퍼에있는걸 전부 쏟아내라.
+	// 겹따옴표를 출력하고싶은경우 문제가 생긱 수 있음.
+	// 그럴때 이스케이프 시퀀스를 쓰고나서 하면 출력할 수 있다. ex) \"
+	// \a - 비프음, 설정해두면 프로그램 킨뒤에 방에서 굴러다니다가 완료되면 확인 간편
+	cout << "This is first line \nsecond line \n";
+	cout << "This is first line " << endl; 
+	cout << "second line" << endl;  
+	cout << "\a" << endl;
+	
+	cout << int('\n') << endl;
+	cout << int('\t') << endl;
+
+	// wchar_t c // 골치아프다고 쓰지말자고들함
+	// char16_t c2
+	// char32_t c3 // 이모티콘 (unicode)를 쓸 때 사용.§ 이런거  
+	
+	return 0;
+}
+

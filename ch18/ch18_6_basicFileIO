@@ -1,0 +1,91 @@
+/*
+	basic file IO
+	ASCII 파일은 txt포맷을 많이 사용함.
+	ASCII는 엄청느림
+	그래서 실무에서는 binary로 더 많이 저장함.
+*/
+
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <cstdlib> // exit()
+#include <sstream>
+
+using namespace std;
+
+int main()
+{
+	
+	//writing
+	if(true)
+	{
+		//ofstream ofs("my_first_file.dat"); // ios::app, ios::binary
+		//ofs.open("my_first_file.dat");
+		ofstream ofs("mu_first_file.dat", ios::app); // append모드 파일이 존재할경우 뒤에 이어서 작업
+		
+		if(!ofs)
+		{
+			cerr << "Couldn't open file " << endl;
+			exit(1);
+		}
+		
+		// ofs << "Line 1" << endl;
+		// ofs << "Line 2" << endl; // ASCII 포맷에 맞춰서 저장이 된다.
+		
+		// 바이너리는 얼마나 들어가는지 모르기때문에 넣기전에 약속해야함.
+		const unsigned num_data = 10;
+		
+		// 숫자가 몇개인지 저장.
+		ofs.write((char*)&num_data, sizeof(num_data));
+		
+		for(int i = 0; i < num_data; ++i)
+			ofs.write((char*)&i, sizeof(i));
+		
+		/*
+		stringstream ss;
+		ss << "Line 1" << endl;
+		ss << "Line 2" << endl;
+		string str = ss.str();
+		*/
+		ofs.close(); // file colse 	보통 영역안에 만들어서 소멸자가 지워주기 떄문에 굳이 호출하지 않는다.
+	}
+	
+	// reading
+	if(true)
+	{
+		// ifstream ifs("my_first_file.dat", ios::binary);
+		ifstream ifs("my_first_file.dat"); // ASCII
+		
+		if( !ifs )
+		{
+			cerr << "Cannot open file" << endl;
+			exit(1);
+		}
+		
+		/*while(ifs)
+		{
+			std::string str;
+			getline(ifs, str); // 다읽으면 false가 나옴
+			
+			std::cout << str << endl;
+		}
+		*/
+		
+		
+		unsigned num_data = 0;
+		ifs.read((char*)&num_data, sizeof(num_data));
+		
+		for(unsigned i = 0; i < num_data; ++i)
+		{
+			int num;
+			ifs.read((char*)&num, sizeof(num));
+			std::cout << num << endl;
+		}
+		
+	}
+
+
+	
+	
+	return 0;
+}

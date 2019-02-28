@@ -1,0 +1,49 @@
+/*
+ 	가상 소멸자
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Base
+{
+	public:
+	virtual ~Base()
+	{
+		cout << "~Base()" << endl;
+	}
+};
+
+
+class Derived : public Base
+{
+	private:
+	int *m_array;
+	
+	public:
+	Derived(int length)
+	{
+		m_array = new int[length];
+	}
+	
+	virtual ~Derived() override
+	{
+		cout << "~Derived()" << endl;
+		delete[] m_array;
+	}
+};
+
+
+int main()
+{
+	// 지울때도 base를 이용해서 지우는것이 일반적임
+	// base의 소멸자만 호출되게됨
+	// 이럴때 derived의 소멸자가 호출되지 않으므로 메모리릭이 발생할 수 있음.
+	// 이때 소멸자를 버츄얼로 만들어주면 된다.
+	Derived *derived = new Derived(5);;
+	Base *base = derived;
+	delete base;
+	
+	return 0;
+}

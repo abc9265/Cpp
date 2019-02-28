@@ -1,0 +1,39 @@
+/*
+	함수에서 여러개의 리턴값 반환하기.
+	c++ 17
+*/
+
+#include <iostream>
+#include <tuple> // tuple - 여러개의 데이터의 쌍, 집합 
+
+using namespace std;
+
+
+// 옛날방식
+// 변경사항이 있을떄마다 하나하나 바꿔줘야함
+/*
+auto my_func()
+{
+	return tuple<int, int, int>(123, 456, 789);
+}
+*/
+
+// 요즘방식 귀찮은게 사라짐
+auto my_func()
+{
+	return tuple(123, 456, 789, 10);
+}
+
+int main()
+{
+	
+	// auto result = my_func();
+	
+	// cout << std::get<0>(result) << " " << get<1>(result) << get<2>(result) endl;
+	
+	
+	auto [a, b, c ,d] = my_func(); // 변수 a b c d를 선언하면서 받는형태와 같아짐
+	cout << a << " " << b << " " << c << " " << d << endl;
+	
+	return 0;
+}

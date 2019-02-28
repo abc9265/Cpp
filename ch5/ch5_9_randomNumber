@@ -1,0 +1,74 @@
+/*
+	Random Number Generation
+	컴퓨터는 랜덤한 넘버를 만들 수 있는 능력이 없다.
+	그래서 유사 랜덤 넘버를 만들 뿐임.
+	C에서는 rand() % 4 = 5이렇게 썼을텐데 
+	지금부터는 랜덤 라이브러리(C++11부터 도입)(#include <random>)
+*/
+#include <iostream>
+#include <cstdlib> // std::radn(), std::srand()
+#include <ctime> // std::time() 시드를 계속 바꿔줌
+#include <random>
+
+int getRandomNumber(int min, int max)
+{
+	static const double fraction = 1.0 / (RAND_MAX + 1.0);
+	
+	return min + static_cast<int>((max - min + 1) * (std::rand() * fraction));
+}
+unsigned int PRNG()
+{
+	// 반복적으로 사용해야하기 때문에 static을 이용함.
+	static unsigned int seed = 5523; // seed number
+	
+	seed = 8253729 * seed + 2396403; // 오버플로우를 이용하는것
+	
+	// 정밀한 연산에선 나머지 연산이 좋지 않음.
+	return seed % 32768; // 나머지 연산자로 나머지를 출력하도록 만듬.
+}
+
+
+
+int main()
+{
+	using namespace std;
+	
+	for (int count = 1; count <= 100; ++count)
+	{
+		cout << PRNG() << "\t";
+		
+		if(count % 5 == 0) cout << endl;
+	}
+	
+	
+	// 시드가 고정되면 나쁜가?
+	// 디버깅할때는 시드를 고정시켜놓고 반복시켜두면 편하다. 
+	// time을 rand에 결합시켜서 시드를 계속 바꿔준다.
+	std::srand(static_cast<unsigned int>(std::time(0)));
+	
+	for(int count = 1; count <= 100; ++count)
+			   {
+				   cout << std::rand() << "\t";
+				   
+				   if(count %5 == 0) cout << endl;
+			   }
+	
+	for(int count = 1; count <= 100; ++count)
+	{
+		cout << getRandomNumber(6, 10) << "\t";
+		if (count % 5 == 0) cout << endl;
+	}
+	
+	std::random_device rd;
+	
+	// 64와 32가 있는데 64비트로 난수를 생성 or 32비트로 생성
+	// 뒤에 mesenne는 변수명임
+	// 타임과 랜덤을 연동시킨것과 비슷한 일을 함.
+	std::mt19937_64 mersenne(rd()); // crete a mesenne twister,
+	std::uniform_int_distribution<> dice(1,6); // 동일한 확률로 나옴
+	
+	for(int count = 1; count <= 20; ++count)
+		cout << dice(mersenne) << endl;
+	
+	return 0;
+}

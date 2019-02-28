@@ -1,0 +1,65 @@
+/*
+	자료형
+	char(character) type - 문자를 저장하는 타입
+	1바이트를 정수하나 저장하는데 사용함.
+	char16_t type - 더 많은 문자를 표현해야 하는 경우 씀 
+	
+	int(integer) type - assingment와 initialize는 차이가 있다. 
+	4바이트를 정수하나 저장하는데에 사용함.
+	
+	더 많은 변수형들은 http://www.cplusplus.com/doc/tutorial/variables 참고
+	
+	os가 메모리를 관리하기 때문에 주소값은 계속 변한다.
+	
+	String은 fundamental data type은 아니다. 외부 라이브러리임.
+	반복문할때는 unsigned를하면 좋음. signed보다 빠른 몇몇 연산이 있음.
+	void type, 
+	Null pointer도 있음
+	
+	built-in datatype이라고도 함.
+*/
+
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+	
+	// boolean도 내부적으로는 숫자로 바꿔서 실행함. 0이 아니면 true
+	bool bValue = false; 	
+	char chValue = 65;
+	
+	float fValue = 3.141592f; // float는 뒤에 f를 붙임
+	double dValue = 3.141592; // double은 안붙임
+	
+	// 3가지 변수 초기화 방법들.
+	
+	// 1. copy initialization.
+	int a = 123; 
+	
+	// 2. direct initialization.
+	int b(123);
+	
+	// 3. uniform initialization. 좀 더 엄격함. 최근에 권장한다고 한다.
+	int c{123}; 
+	
+	// 초기화할꺼면 마지막꺼만 하지말기. 전부 다 123으로 초기화하는거처럼 보임 
+	int k = 0, l = 456, m = 123; 
+	// 사용할 변수는 사용하기 직전에 선언하는걸 선호함
+	// 변수를 사용하는 코드하고 선언되는 부분이 가까워야 디버깅하기 좋기때문
+	
+	auto aValue = 3.141592; // auto는 double로 자동으로 결정됨.
+	auto aValue2 = 3.141592f; // 이 경우에는 float
+	
+	
+	cout << (bValue ? 1 : 0) << endl;
+	cout << chValue << endl;
+	cout << (int)chValue << endl;
+	cout << fValue << endl;
+	cout << dValue << endl;
+	cout << sizeof(aValue) << endl; // 사이즈 계산
+	cout << sizeof(aValue2) << endl;
+
+	
+	return 0;
+}

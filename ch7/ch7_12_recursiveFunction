@@ -1,0 +1,43 @@
+/*
+	Recursive Function Call
+	재귀적 함수 호출
+*/
+
+#include <iostream>
+
+using namespace std;
+
+// 작성한 프로그램은 저장되어있는데
+// 함수가 호출할떄는 그 메모리의 주소를 가지고 호출한다.
+// 따라서 재귀로 호출된 함수가 같은것은 아님 
+// 같은 코드를 따로따로 호출하는것이다.
+// recursion을 사용할때는 종료하는 조건을 반드시 설정해둬야한다.
+// 너무 많이하면 stack overflow됨
+// 피보나치 수열 재귀 사용해서 만들어보기
+// iterate - 반복하는것, recursion - 재귀
+void countDown(int count)
+{ 
+	cout << count << endl;
+	if(count > 0)
+		countDown(count - 1);
+}
+
+int sumTo(int sumto)
+{
+	if(sumto <= 0)
+		return 0;
+	else if (sumto <= 1)
+		return 1;
+	else
+	{
+		const int sum_minus_one = sumTo(sumto - 1);
+		return sum_minus_one + sumto;
+	}
+}
+
+int main()
+{
+	countDown(5);
+	
+	return 0;
+}

@@ -1,0 +1,72 @@
+/*
+	Bitwise Operators
+	컴퓨터의 이진수에 대해 각 자리 값을 계산하는방법
+	
+	생긴이유?
+	1. 주소를 줄 수 있는 단위는 바이트 단위임 
+	1비트면 되는 bool type의 경우에도 8비트를 온전히 다 써야함 즉 낭비임 
+	이를 줄이기위해 비트단위 연산자가 제공되어짐.
+	2. 속도가 빠름
+*/
+
+#include <iostream>
+#include <bitset> // bit에 관한 오퍼레이터 쉽게 비트를 볼 수 있게 해줌.
+
+int main()
+{
+	using namespace std;
+	 
+	/*
+		<< : left shift.
+		>> : right shift.
+		C++에서는 다른 의미로 쓴다고 강제로 덮어씌워놨음.
+		
+		~ : bitwise not
+		& : bitwise and
+		| : bitwise or
+		^ : bitwise XOR
+		
+		bitwise 계산을 할때는 unsigned를 사용하는게 일반적이다.
+		자주 쓰이는건 다음강의때 배울 bitMask 기능임.
+	*/
+	
+		
+	// a가 어떻게 나오는지 2진수로 보여줌 
+	// <4>는 4비트만 보여준다는 뜻
+	unsigned int a = 3;
+	cout << "a: " << std::bitset<4>(a) << " " << a << endl ;
+
+	// 2^(쉬프트하는양)만큼 수에 곱해진다.(left shift)
+	cout << std::bitset<8>(a << 1) << " " << (a << 1) << endl;
+	cout << std::bitset<8>(a << 2) << " " << (a << 2) << endl;
+	cout << std::bitset<8>(a << 3) << " " << (a << 3) << endl;
+	cout << std::bitset<8>(a << 4) << " " << (a << 4) << endl;
+	
+	
+	// 1/2^(쉬프트하는양)만큼 수에 곱해진다 (right shift)
+	// 계산이 단순히 저장된걸 밀어버리기만 하면 되기 때문에 속도가 
+	// 일반적인 계산보다 훨씬 빠르다.
+	unsigned int x = 1024;
+	
+	cout << std::bitset<16>(a) << endl;
+	
+	cout << std::bitset<16>(x >> 1) << " " << (x >> 1) << endl;
+	cout << std::bitset<16>(x >> 2) << " " << (x >> 2) << endl;
+	cout << std::bitset<16>(x >> 3) << " " << (x >> 3) << endl;
+	cout << std::bitset<16>(x >> 4) << " " << (x >> 4) << endl;
+	
+	cout << std::bitset<16>(a) << " " << (a) << endl;
+	cout << std::bitset<16>(~a) << " " << (~a) << endl;
+	
+	unsigned int b = 0b1100;
+	unsigned int c = 0b0110;
+	
+	cout << a << " " << b << endl;
+	cout << std::bitset<4>(b & c) << " " << (b&c) << endl; // bitwise and
+	cout << std::bitset<4>(b | c) << endl; // bitwise or
+	cout << std::bitset<4>(b ^ c) << endl; // bitwise xor
+	
+	b &= c;
+	cout << "b : " << b << endl;
+	return 0;
+}

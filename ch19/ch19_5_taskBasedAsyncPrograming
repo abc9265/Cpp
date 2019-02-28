@@ -1,0 +1,82 @@
+/*
+	작업기반 비동기 프로그래밍
+	Task based async programming
+	async, future, promise
+*/
+
+#include <iostream>
+#include <future>
+#include <thread>
+#include <chrono>
+
+using namespace std;
+
+int main()
+{
+	/*
+	// multi-threading
+	{
+		int result;
+		
+		// 쓰레드를 생성해서 관리해줌.
+		std::thread t([&]{result = 1 + 2;});
+		
+		// 쓰레드가 일을 끝날때까지 기다리는방식 
+		t.join();
+		cout << result << endl;
+	}
+	
+	// task-based parallelism 이걸 좀 더 좋아함.
+	{
+		// main thread가 진행되는 것과는 별도로 fut안에서 작업이 진행됨. 
+		// async는 쓰레드를 관리하는 옵션이 더 있다.
+		
+		// 어떤 task를 할 것인가를 위주로 프로그래밍을 하고 있음.
+		// return이 언제 돌아올지 보장할 수 없는 상황임. 
+		// 미래에 일이 끝나면 int값 뭔가를 받아가겠다.
+		// 무슨일이 일어나는지 모르는 thread방식과는 다르게 직관적으로 알 수 있음.
+		// get의 특징은 만약에 문장이 실행되는것이 작업이 끝나기 전이라면 get 리턴값이 올때까지 기다린다.
+		// std::future<int> fut = ...
+		auto fut = std::async([] { return 1 + 2; });
+		cout << fut.get() << endl;
+	}
+	
+	// future And Promise
+	// future를 사용할때 thread를 사용하려면 밑과같이 써줘야한다.
+	{
+		std::promise<int> prom; // future를 받을 수 있는 존재. 어떤 값을 넣어주면 future가 발동이 됨.
+		auto fut = prom.get_future();
+		
+		// async도 되는데 굳이 thread를 쓰나요?
+		// async를 쓰면 변수가 future로 진행되고
+		// 그러면 굳이 안에 promise를 쓸 필요가 없음.
+		auto t = std::thread([](std::promise<int>&& prom) // thread를 줌
+		 {
+			 prom.set_value(1 + 2); // promise가 set_value를 통해서 결과값을 받을때까지 future가 계속 기다림
+		 }, std::move(prom));
+		
+		cout << fut.get() << endl;
+		t.join();
+	}
+	*/
+	{
+		// 앞에서 받아주는 future가 없을경우에는 sequencial인것 처럼 진행이 되어버림
+		std::async([] {
+			cout << "async1 start" << endl;
+			this_thread::sleep_for(chrono::seconds(2));
+			cout << "async1 end" << endl;
+		});
+		
+		std::async([] {
+			cout << "async2 start" << endl;
+			this_thread::sleep_for(chrono::seconds(1));
+			cout << "async2 end" << endl;
+		});
+		
+		std::cout << "Main function" << std::endl;
+		
+		// async과 thread는 내부적으로 처리하는 방법이 좀 다르다.
+	}
+	
+	return 0;
+}

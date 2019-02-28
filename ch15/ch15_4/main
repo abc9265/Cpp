@@ -1,0 +1,28 @@
+/*
+ 	std::move
+	프로그래머 스스로 move semantics를 사용하고 싶을 때 사용
+*/
+
+#include <iostream>
+#include <utility> // std::move
+#include "AutoPtr.h"
+
+using namespace std;
+
+int main()
+{
+	{
+		AutoPtr<Resource> res1(new Resource(1000000));
+
+		cout << res1.m_ptr << endl;
+
+		// move constructor를 사용하고 싶다.
+		// std::move(value) value를 Rvalue로 리턴해줌 
+		AutoPtr<Resource> res2 = std::move(res1); 
+
+		cout << res1.m_ptr << endl;
+		cout << res2.m_ptr << endl;
+	}
+	
+	return 0;
+}

@@ -1,0 +1,102 @@
+/*
+	구조체 Struct
+	다양한 요소들을 묶어서 하나의 자료형인것 처럼 사용할 수 있게 해주는 것.
+	C++에서는 클래스로 넘어가기 위한 길목임
+*/
+
+#include <iostream>
+#include <string>
+
+struct Employee
+{
+	// 구조체의 크기는 2 + (2) + 4 + 8 = 14??
+	// 컴파일러가 추가적으로 읽기 편하게 만드는거임 그래서 18비트가 됨 
+	// 패딩을 추가한다는 뜻 padding
+	short 	id;		// 2 bytes
+	int 	age; 	// 4 bytes
+	double 	wage;	// 8 bytes
+};
+
+struct Person 
+{
+
+	// 각각을 멤버라고 부름
+	// .은 멤버선택 오퍼레이터임
+	// 초기화를 따로 안하면 밑의 값들이 기본값들로 나옴
+	double 	height = 3.0;
+	float 	weight = 200.0;
+	int		age = 100;
+	std::string	name = "Mr. Incredible";
+	
+	// 구조체 안에 있어서 굳이 파라미터를 넣을 필요도 없음.
+	void print()
+	{
+		using namespace std;
+
+		cout << height << " " << weight << " " << age << " " << name;
+		cout << endl;
+	}
+};
+
+struct Family
+{
+	Person me, mom, dad;
+};
+
+Person getMe()
+{
+	Person me{2.0, 100.0, 20, "Jack Jack"};
+
+	return me;
+}
+
+ 
+/*
+// 어처피 다 Person쓰는데 굳이 밖으로? 안으로 집어넣자
+void printPerson(Person ps)
+{
+	using namespace std;
+	cout << ps.height << " " << ps.weight << " " << ps.age << " " <<ps.name;
+	cout << endl;
+}
+*/
+int main()
+{
+	using namespace std;
+	
+	// void printPerson(double height, float weight, int age, name ...)
+	// 1. 사람을 표현할때 함수를 사용하는건 정말 복잡함 부담도 되고 
+	// 2. 여러사람을 저장할 때 변수의 개수가 엄청나게 늘어남
+	// 변수 내부를 열거형으로 세세하게 사용할 수도 있음
+	/*
+		double 	height;
+		float 	weight;
+		int		age;
+		string	name;
+	*/
+	// 구조체를 이용하자!
+	/*
+	Person me;
+	me.age = 20;
+	me.name = "Jack Jack";
+	me.height = 2.0;
+	me.weight = 100.0;
+	*/
+	
+	// 요즘엔 이렇게 많이씀 위에껀 복잡해서
+	Person me{2.0, 100.0, 20, "Jack Jack"};
+	Person me2;
+	
+	// 단순한 경우에만 해줌
+	me2 = me;
+		
+	//printPerson(me)
+	me.print();
+	me2.print();
+
+	Person me_from_func = getMe();
+	me_from_func.print();
+	
+	cout << sizeof(Employee) << endl;
+	return 0;
+}

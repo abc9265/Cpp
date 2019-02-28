@@ -1,0 +1,77 @@
+/*
+ 	Derived class's creation order
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Mother
+{
+	public:
+	int m_i;
+	
+	Mother(const int & i_in = 0) // 디폴트 컨스트럭터까지 구현한 셈
+		: m_i(1)
+		{
+			cout << "Mother construction" << endl;
+		}
+};
+
+class Child : public Mother
+{
+	public:
+	double m_d;
+	// m_i(1024) mother가 초기화하기 전까지는 초기화할 수 없음. 그래서 m_i에 접근불가하다.
+	Child()
+		:  m_d(1.0) // Mother()가 숨어있음.
+	{
+		// m_i = 10; // private때는 안됨 
+		this -> m_i = 10; // this 포인터로도 접근가능함 내꺼긴한데 MOTHER 클래스로부터 받은거다
+		this -> Mother::m_i = 1024;
+		cout << "Child construction" << endl;
+	}
+};
+
+
+class A
+{
+	public:
+	A()
+	{
+		cout << "A constructor" << endl;
+	}
+};
+
+class B : public A
+{
+	public:
+	B()
+	{
+		cout << "B constructor" << endl;
+	}
+};
+
+class C : public B
+{
+	public:
+	C()
+	{
+		cout << "C constructor" << endl;
+	}
+};
+
+
+int main()
+{
+	// Mother Construnction이 호출된 후 
+	// 그 뒤에 Child Construction이 호출됨
+	// Child Constructor에서 의도적으로 Mother 컨스트럭터를 호출하지 않아도 
+	// 자동으로 default Constructor를 호출한다.
+	// Mother에 있는걸 전부 초기화 한 다음에 Child를 초기화한다.
+	Child c1;
+	
+	C c;
+	
+	return 0;
+}

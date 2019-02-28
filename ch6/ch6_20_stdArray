@@ -1,0 +1,43 @@
+/*
+	std::array
+*/
+
+
+#include <iostream>
+#include <array>
+#include <algorithm>
+using namespace std;
+
+// array가 크기가 크기때문에 레퍼런스를 쓰면 좋다.
+// const를 사용하면 값의 변경도 막을 수 있음!
+void printLength(const array<int, 5>& my_arr)
+{
+	cout << my_arr.size() << endl;
+
+}
+
+int main()
+{
+	
+	int array[5] = { 1, 2, 3, 4, 5 };
+	
+	// 함수 파라미터로 넘길 때 훨씬 편하다.
+	// 사용자 클래스로 한번 더 감싼형태임
+	std::array<int, 5> my_arr = { 1, 21, 3, 49, 5 }; // 꼭 숫자가 들어가야함
+	
+	// 두가지의 차이
+	// 위에거는 10이 0, 1, 2, 3, 4만 들어가는데 체크 안하고 무조건 엑세스 해보고
+	// 밑에거는 미리 체크해보고 예외를 발생시킴.
+	cout << my_arr[3] << endl;
+	cout << my_arr.at(3) << endl;
+	cout << my_arr.size() << endl;
+	
+	printLength(my_arr);
+	
+	std::sort(my_arr.begin(), my_arr.end());	
+	for(auto element : my_arr)
+		cout << element << " ";
+	cout << endl;
+		
+	return 0;
+}

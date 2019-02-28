@@ -1,0 +1,72 @@
+/*
+	2019-01-13
+	Static member Function
+	어려움 ㅠㅠ 
+	한번 쭉 복습하고 다시와서 한번 더 듣자.
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Something
+{
+	// inner class
+	// 내부클래스이기때문에 스태틱멤버에 접근이 가능하다.
+	// constructor에 const값도 집어넣기
+	// inner class를 이용해서 constructor를 사용해서 
+	// 간접적으로 초기화할 수 있다.
+	class _init
+	{
+		public:
+			_init()
+			{
+				s_value = 9876; 
+			}
+	};
+	
+	
+	private:
+		static int s_value;
+		int m_value;
+		static _init s_initializer;
+	
+	
+	public:
+	
+		
+		Something()
+			: m_value(123)
+		{}
+		static int getValue()
+		{
+			// this Func는 non-static function에서만 쓸 수 있다.
+			// this로 접근하는 모든것이 안된다.
+			// return this->s_value;
+			// return this->m_value;
+			// static에서는 this를 사용할 수 없다.
+			// static 멤버 변수는 constructor에서 사용할 수 없다.
+			// C++에서는 static 생성자를 지원하지 않는다.
+		}
+	
+		int temp()
+		{
+			return this->s_value + this->m_value;
+		}
+};
+
+int Something::s_value = 1024;
+
+int main()
+{
+	// static으로 선언 시 특정 인스턴스가 없을때도 s_value에 접근할 수 있다.
+	cout << Something::getValue() << endl;
+	
+	// s1의 m_value와 s2의 m_value는 주소가 다르지만 함수는 주소가 같다.
+	// temp라는 함수를 사용할때 s1의 this포인터를 주고 temp함수를 작동시켜라는 식으로 작동한다.
+	Something s1, s2;
+	cout << s1.getValue() << endl;
+	
+
+	return 0;
+}

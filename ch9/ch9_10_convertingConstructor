@@ -1,0 +1,68 @@
+/*
+	변환생성자 Converting constructor
+	이걸 사용못하게하는 explicit
+	특정한 생성자를 사용못하게하는 delete
+	
+	동적할당에서 사용한 delete와는 다른의미임
+*/
+
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+
+class Fraction
+{
+	private:
+	int m_numerator;
+	int m_denominator;
+	
+	
+	public:
+	// delete 이전버전에서는 허용했는데 이번버전에서는 허용 안함
+	Fraction(char) = delete; // 막아버림
+	
+	// explicit 키워드를 사용하면 Convert construct를 하지 못하게한다.
+	explicit Fraction(int num = 0, int den = 1)
+		:m_numerator(num), m_denominator(den)
+	{
+		assert(den != 0);
+	}
+	
+	
+	Fraction(const Fraction &fraction) // copy constructor
+		: m_numerator(fraction.m_numerator), m_denominator(fraction.m_denominator)
+	{
+		cout << "Copy constructor called"<< endl;
+	}
+	
+	
+	friend std::ostream & operator << (std::ostream & out, const Fraction & f)
+	{
+		cout << f.m_numerator << " / " << f.m_denominator << endl;
+		return out;
+	}
+};
+
+void doSomething(Fraction frac)
+{
+	cout << frac << endl;
+}
+
+
+int main()
+{
+	Fraction frac(7);
+	
+	// 아예 7만넣어도 무관하다. 
+	// 자동으로 바꿔주는걸 Convert Construct라고한다.
+	// doSomething(7);
+	
+	doSomething(frac);
+	
+	// 지워버렸기때문에 사용을 할 수 없다.
+	// Fraction frac2('c');
+	
+	return 0;
+}

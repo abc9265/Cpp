@@ -1,0 +1,54 @@
+/*
+ 	std::Exception 소개
+	어떤것이 있는지는 레퍼런스 참고
+*/
+
+#include <iostream>
+#include <exception>
+#include <string>
+#include <typeinfo>
+
+using namespace std;
+
+class CustomException : public std::exception
+{
+	// std::exception에서 what함수를 오버라이드 해주는게 중요하다
+	// noexcept - C++11문법
+	// 이 안에서는 exception을 던지지 않겠다라는뜻 
+	public:
+	const char * what() const noexcept override
+	{
+		return "Custom Exception";
+	}
+};
+
+int main()
+{
+	try
+	{
+		std::string s;
+		s.resize(-1);
+		
+		
+		// exception의 자식클래스중 하나를 throw로 직접 던질 수도 있다.
+		// throw std::runtime_error("Bad thing happend");
+		throw CustomException();
+	}
+	
+	
+	// 직접 length_error를 받을수도 있다.
+	catch(std::length_error & e)
+	{
+		std::cerr << "Length_Error" << std::endl;
+		std::cerr << e.what() << std::endl;
+	}
+	catch(std::exception & e)
+	{
+		// 무슨 에러냐? exception.what();
+		// 밑에처럼하면 보다 세세하게 어떤 클래스에서 에러가 난지 알 수 있다.
+		std::cout << typeid(exception).name() << std::endl;
+		std::cerr << e.what() << std::endl;
+	}
+	
+	return 0;
+}

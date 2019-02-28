@@ -1,0 +1,67 @@
+/*
+	관계연산자(Relational Operators)
+	누가 더 크냐!
+	>, <, ==, !=, etc...
+	nan, inf같은게 뜨면 관계연산자가 먹통이 되버림. 조심!!!
+*/
+
+#include <iostream>
+#include <cmath> // std:abs
+
+int main()
+{
+	using namespace std;
+
+	//while(true)
+	//{
+
+		int x, y;
+		cin >> x >> y;
+		cout << "Your input values are : " << x << " " << y << endl;
+
+		if(x == y)
+			cout << "equal" << endl;
+		if(x != y)
+			cout << "not equal" << endl;
+		if(x > y)
+			cout << "x is greater than y" << endl;
+		if(x < y)
+			cout << "y is greater than x" << endl;
+		if(x >= y)
+			cout << "x is greater than y or equal to y" << endl;
+		if(x <= y)
+			cout << "y is greater than x or equal to x" << endl;
+		
+	//}
+	
+	
+	// 실수의경우에는 == 연산자가 잘 먹히지 않음.
+	// 얶덖계 해결함?
+	// 부동소수점강의에서 어케했는지 확인해보자.
+	// 수치해석학 - 이런거 배움 수치 최적화 이런거 배울때 모르면 헤맴
+	double d1(100 - 99.99); // 0.001
+	double d2(10 - 9.99);   // 0.001
+	
+	if (d1 == d2)
+		cout << "Double Equal" << endl;
+	else
+	{
+		cout << "Double Not Equal" << endl;
+		
+		if(d1 > d2) cout << "d1 > d2" << endl;
+		else cout << "d1 < d2" << endl;
+	}
+	
+	cout << std::abs(d1 - d2) << endl;
+	
+	// 차이가 상당히 작은순데 이정도면 괜찮다고 알려주고 싶음.
+	const double epsilon = 1e-10;
+	
+	if (std::abs(d1 - d2) < epsilon)
+		cout << "Approximately equal" << endl;
+	else
+		cout << "Not Equal" << endl;
+	 
+	
+	return 0;
+}

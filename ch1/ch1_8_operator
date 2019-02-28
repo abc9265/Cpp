@@ -1,0 +1,25 @@
+#include <iostream>
+
+using namespace std;
+int main()
+{
+	// = is assignment the operator.
+	int x = 2; // x is a variable, 2 is a literal.
+	int y = (x > 0) ? 1 : 2;
+
+	cout << "Hello, World!" << endl; // String is literal
+	
+	// + is operator.
+	// 1 is literal, 2 is literal, but 1+2 is expression.
+	// x and 2 is operand.
+	cout << x + 2 << endl;
+	cout << y << endl;
+	
+	/*
+	operators
+	-(-1,-2)(unary) , 1+2 (binary operator)  
+	int y = (x > 0) ? 1 : 2; (ternary) if true return left, else return right
+	*/
+	
+	return 0;
+}

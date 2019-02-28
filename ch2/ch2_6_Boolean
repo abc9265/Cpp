@@ -1,0 +1,79 @@
+/*
+	Boolean
+	True(1), False(0)
+	불타입을 리턴타입으로 쓰는경우도 많음. 
+	값이 같으면 true 아니면 false 리턴
+	if는 0이아니면 true로 판단한다.
+*/
+#include <iostream>
+
+bool isEqual(int a, int b)
+{
+	bool result = ( a == b );
+	
+	return result;
+}
+
+
+
+int main(void)
+{
+	using namespace std;
+	
+	bool b1 = true; // copy initialization
+	bool b2(false); // direct initialization
+	bool b3{true}; // uniform initialization
+	
+	cout << std::boolalpha; // cout에 이렇게 설정해두면 true, false로 나옴.
+	cout << b3 << endl;
+	cout << b2 << endl;
+	
+	cout << std::noboolalpha; // 이러면 다시 0, 1로 설정됨
+	cout << !true << endl;		// !는 not 연산자임 변수에도 적용가능
+	cout << !false << endl;		// not은 버그생겼을때 찾기 힘들어서 잘 안쓴다고 함
+	
+	// 논리 연산
+	cout << "Logical Caculate (and &&)" << endl;
+	cout << (true && true) << endl;
+	cout << (true && false) << endl;
+	cout << (false && true) << endl;
+	cout << (false && false) << endl;
+	
+	cout << "Logical Caculate (or ||)" << endl;
+	cout << (true || true) << endl;
+	cout << (true || false) << endl;
+	cout << (false || true) << endl;
+	cout << (false || false) << endl;
+	
+	// if문
+	cout << "- If statement " << endl;
+	if(true) // 안에 들어가는 bool type에 따라 다름.
+		cout << "This is true" << endl;
+	else
+		cout << "This is false" << endl;
+	
+	
+	if(true)
+	{
+		cout << "if you want implement many line of instruction, use {}"
+			<< endl;
+		cout << "This is Second Line" << endl;
+	}
+	
+	
+	// isEqual함수 사용
+	cout << "- Use func, is Equal" << endl;
+	cout << isEqual(1, 1) << endl;
+	cout << isEqual(0, 3) << endl;
+	
+	bool b;
+	
+	
+	// 컴파일러 버전마다 다르게 나올수도 있는 코드, false라고 쳤는데 false라고 안나옴
+	cin >> b;
+	cout << std::boolalpha;
+	cout << "Your input : " << b << endl;
+	
+	
+	return 0;
+}

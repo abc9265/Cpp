@@ -1,0 +1,51 @@
+/*
+ 	override, final, Covariant 공변반환형
+	공변반환형 -> 어려움
+	다형성을 구현할때 유용하게 사용할 수 있음.
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class A
+{
+	// 자식클래스, 부모클래스간에는 리턴타입이 달라도 오버라이딩이 된다.
+	public:
+	virtual void print() const { cout << " A " << endl; }
+	virtual A* getThis() { return this; }
+};
+
+class B : public A
+{
+	public:
+	// overloading으로 실수로 하지않게 하기 위해 overide를 친다.
+	// final을 쓰면 함수가 더이상 오버라이드할 수 없게 한다.
+	virtual void print() final { cout << " B " << endl; }
+	virtual B* getThis() { return this; }
+};
+
+class C : public B
+{
+	public:
+	void print(int x)  { cout << " C " << endl; }
+};
+
+
+int main()
+{
+	A a;
+	B b;
+	C c;
+	
+	// 함수는 파라미터가 다르면 오버라이딩을 할 수가 없다.
+	A &ref = b;
+	
+	// 둘 다 B의 getThis를 가져오는데 리턴값이 다르다 
+	// A의 포인터로 바꾼뒤에 출력한다.
+	b.getThis()->print();
+	ref.getThis()->print();
+	
+	
+	return 0;
+}

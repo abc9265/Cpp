@@ -1,0 +1,46 @@
+/*
+ 	Add new function to Derived Class
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Base
+{
+	protected:
+	int m_value;
+	
+	public:
+	Base(int value_in)
+		:m_value(value_in)
+		{}
+	
+
+};
+
+class Derived : public Base
+{
+	public:
+	Derived(int value_in)
+		:Base(value_in)
+		{}
+		
+	void setValue(int value)
+	{
+		Base::m_value = value;	
+		// do some work with the variables defined in Derived
+		// getValue를 이용하는 방법을 쓸 수도 있지만 퍼포먼스에 문제가 있을 수 있음
+		// 그때그때 상황에따라 설계에따라 다름
+	} 
+	
+
+};
+
+int main()
+{
+	
+	
+	
+	return 0;
+}

@@ -1,0 +1,49 @@
+/*
+	For문
+	while과 for의 차이?
+	during the vacation, during the winter
+	while i watching tv  // 일단 돌리고보자 
+	i sleeping for 8 hour // 딱 떨어지는 느낌, 반복횟수가 정해져있음
+*/
+
+#include <iostream>
+
+int pow(int base,int exponent)
+{
+	int result = 1;
+	
+	for(int count = 0; count < exponent; ++count)
+		result *= base;
+	
+	return result;
+}
+
+int main()
+{
+	using namespace std;
+	
+	for (int count = 0; count < 10; ++count) // iteration ( i를 많이 씀 )
+	{
+		cout << count << endl;
+	}
+	
+	// for문이 끝나면 카운트가 사라짐 
+	// for문 후에도 count를 쓰고싶으면 for문 밖에 선언해야한다.
+	// while(true)를 for문으로 쓰려면
+	//for(;true;+count++) 이렇게 쓰면 된다
+	// for(;;cout++)처럼 쓸 수도 있음.
+	
+	for (int count = 9; count >= 0; --count) // 부등호랑 같이 들어간건 조심
+	{
+		cout << count << endl;
+	}
+	
+	// variable을 두개, 세개씩 쓸 수도 있다.
+	for(int i=0, j=0; i < 10; ++i, --j)
+		cout << i << " " << j << endl;
+	
+	for(unsigned int i = 9; i >= 0; --i)
+		cout << i << endl;
+
+	return 0;
+}

@@ -1,0 +1,57 @@
+/*
+ 	상속받은 함수를 감추기
+	hide Inherited Function
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Base
+{
+	protected:
+	int m_i;
+	
+	public:
+	Base(int value)
+		: m_i(value)
+		{}
+	
+	void print()
+	{
+		cout << "I'm base" << endl;
+	}
+	
+};
+
+class Derived : public Base
+{
+	private:
+	double m_d;
+	
+	public:
+	Derived(int i_in, double d_in = 0)
+		: Base(i_in), m_d(d_in)
+		{}
+		
+	using Base::m_i; // Derived안에서는 public이 되어버림 
+		
+	private:
+	using Base::print; // do not use (); , 막아버림
+	void print()
+	{
+		cout << "I'm Derived" << endl;
+	}
+	
+	
+};
+
+int main()
+{
+	Derived derived(7);
+	
+	derived.m_i = 1024;
+	// derived.print();
+	
+	return 0;
+}

@@ -1,0 +1,11 @@
+// 이경우 잘 안되는데
+// cpp파일을 인클루드해버리는 방법이있고
+// 그냥 헤더파일에 넣는방법이 있음
+#include "Storage.h"
+
+template <>
+void Storage<double>::print()
+{
+	std::cout << "Double Type";
+	std::cout << std::scientific << m_value << '\n';
+}

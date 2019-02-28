@@ -1,0 +1,60 @@
+/*
+ 	Multiple Inheritance 다중상속
+	다중상속을 잘못사용하면 큰 문제가 발생할 수 있다.
+	다이아몬드 상속구조를 사용하지 않도록 조심해야한다.
+		A
+	B1		B2
+		C
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class USBDevice
+{
+	private:
+	long m_id;
+	
+	public:
+	USBDevice(long id) : m_id(id) {}
+	
+	long getID() { return m_id; }
+	
+	void plugAndPlay() {}
+};
+
+class NetworkDevice
+{
+	private:
+	long m_id;
+	
+	public:
+	NetworkDevice(long id) : m_id(id) {}
+	
+	long getID() { return m_id; }
+	
+	void networking() {}
+};
+
+class USBNetworkDevice : public USBDevice, public NetworkDevice
+{
+	public:
+	USBNetworkDevice(long usb_id, long net_id)
+	:USBDevice(usb_id), NetworkDevice(net_id) {}
+};
+
+int main()
+{
+	USBNetworkDevice my_device(3.14, 6.022);
+	
+	my_device.networking();
+	my_device.plugAndPlay();
+	
+	// my_device.getID(); 모호성 문제 발생
+	my_device.USBDevice::getID(); // 이런식으로 해주면 된다.
+	my_device.NetworkDevice::getID();
+	
+	
+	return 0;
+}

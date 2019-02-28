@@ -1,0 +1,76 @@
+/*
+	첨자 연산자 오버로딩 []
+	subscript operator 
+*/
+#include <iostream>
+#include <cassert>
+
+using namespace std;
+
+class Intlist
+{
+	private:
+	int m_list[10] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+	
+	public:
+	int & operator [] (const int index)
+	{
+		// 반드시 assert를 넣어 에러를 방지하자
+		// 굉장히 많이쓰게될것이기 때문에 if문을 쓰면 느려진다
+		// 따라서 assert를 쓰는게 좋다.
+		assert(index >= 0);
+		assert(index < 10);
+		
+		return m_list[index];
+	}
+	
+	const int & operator [] (const int index) const
+	{
+		return m_list[index];
+	}
+	/*
+	void setItem(int index, int value)
+	{
+		m_list[index] = value;
+	}
+	
+	int getItem(int index)
+	{
+		return m_list[index];
+	}
+	
+	int *getList()
+	{
+		return m_list;
+	}
+	*/
+};
+
+
+int main()
+{
+	/*
+	Intlist my_list;
+	my_list.setItem(3, 1);
+	cout << my_list.getItem(3) << endl;
+	my_list.getList()[3] = 10;
+	cout << my_list.getList()[3] << endl;
+	*/
+	
+	// 좀 쓰기 불편하니 subscript operator를 오버로딩해보자
+	// const로 쓸경우 값을 읽는건 상관이 없어야하므로 
+	// const를 통해 오버로딩하자
+	const Intlist my_list;
+	// my_list[3] = 10;
+	cout << my_list[3] << endl;
+	
+	
+	Intlist *list = new Intlist;
+	
+	// list[3] 이렇게하면 안되고 이렇게되면 리스트자체의 어레이를 스퀘어 브레킷으로 엑세스를 하려하니 당연히 에러가 생긴다.
+	// 의도가 좀 다르다
+	
+	(*list)[3]; // Ok
+	
+	return 0;
+}

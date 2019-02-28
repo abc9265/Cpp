@@ -1,0 +1,22 @@
+/*
+	C++ 11 Fixed-width Integer
+	C++ 표준에서는 데이터 사이즈를 최소 사이즈만 규정하고 있기 때문에
+	실제 구현된 사이즈는 다를 수 있다.
+	이에 따라 C++ 11에서 똑같은 데이터 사이즈를 사용하는 고정너비정수라는게 고안됨. 
+*/
+
+#include <iostream>
+//#include <cstdint> // iostream안에있음
+
+int main()
+{
+	using namespace std;
+	
+	std::int16_t i(5);
+	std::int8_t myint = 65; // char로 컴파일됨 쓰지말자는 이야기도 있음.
+	
+	cout << "myint: " << myint << endl;
+	
+	std::int_fast8_t fi(5); // 가장 빠른거
+	std::int_least64_t fl(5); // 적어도 8바이트를 가지는 데이터 타입
+}

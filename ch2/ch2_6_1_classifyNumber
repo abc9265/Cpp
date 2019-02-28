@@ -1,0 +1,31 @@
+#include <iostream>
+
+void classifyNumber(int value);
+
+int main()
+{
+	using namespace std;
+	
+	int value = 0;
+	
+	cout << "정수를 입력하세요 : ";
+	cin >> value;
+	classifyNumber(value);
+	
+	
+	return 0;
+}
+
+void classifyNumber(int value)
+{
+	using namespace std;
+	
+	if( value % 2 == 1 )
+	{
+		cout << "입력하신 값은 홀수입니다." << endl;
+	}
+	else
+	{
+		cout << "입력하신 값은 짝수입니다." << endl;
+	}
+}

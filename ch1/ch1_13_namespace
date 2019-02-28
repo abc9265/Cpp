@@ -1,0 +1,42 @@
+/*
+	namespace란 
+	똑같은 이름을 가진 함수가 있으면 겹쳐서 실행이 안됨
+	namespace를 앞에a 쓰는게 번거로울 수 있는데
+	using namespace NAMESPACE 이런식으로 써두면 후에 네임스페이스를 생략할 수 있다.
+	
+	std namespace
+	iostream은 네임스페이스 안에 정의되있다. STD_BEGIN이라는 매크로로 정의되어있음.
+*/
+
+#include <iostream>
+
+using namespace std;
+
+namespace Myspace1
+{
+	namespace InnerSpace
+	{
+		int my_function()
+		{
+			cout << "This is my_function" << endl;
+			return 0;
+		}
+	}
+	int doSomething(int a, int b)
+	{
+		return a + b;
+	}	
+}
+
+
+int doSomething(int a, int b)
+{
+	return a * b;
+}
+
+int main()
+{
+	cout << Myspace1::InnerSpace::my_function();
+	cout << doSomething(3, 4) << endl;
+	cout << Myspace1::doSomething(3, 4) << endl;
+}

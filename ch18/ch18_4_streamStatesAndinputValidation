@@ -1,0 +1,94 @@
+/*
+	Stream states And input validation 
+	흐름상태와 입력 유효성 검증 
+	파일로부터 데이터를 읽어들일때 스트림의 현재상태가 언젠지 입력받은 데이터가
+	유효한지 유효(validation)한지 검증하는 과정.
+*/
+
+#include <iostream>
+#include <cctype>
+#include <string>
+#include <bitset>
+
+using namespace std;
+
+// 부모클래스인 ios를 사용하므로 스트림은 파일스트림, iostream 공통적으로 사용할 수 있다.
+// stream의 경우 파일과 콘솔에대해서 일관성있게 구현을하기가 아주 편하다.
+void printStates(const std::ios& stream)
+{
+	cout << boolalpha;
+	cout << "good()= " << stream.good() << endl; // 상태가 좋다. return type - bool
+	cout << "eof()= " << stream.eof() << endl; // end of file?.
+	cout << "fail()= " << stream.fail() << endl; // 실패했다.
+	cout << "bad()= " << stream.bad() << endl; // 상태가 나쁘다.
+}
+
+void printCharacterClassification(const int & i)
+{
+	cout << boolalpha;
+	cout << "isalnum " << bool(std::isalnum(i)) << endl;
+	cout << "isblank " << bool(std::isblank(i)) << endl;
+	cout << "isdigit " << bool(std::isdigit(i)) << endl;
+	cout << "islower " << bool(std::islower(i)) << endl;
+	cout << "isupper " << bool(std::isupper(i)) << endl;
+}
+
+void isAllDigit(const string & str)
+{
+	
+	bool ok_flag = true;
+	
+	for (auto e : str)
+		//if (!std::isdigit(e))
+		{
+			ok_flag = false;
+			
+			std::cout << e << std::endl;
+			std::cout << "isdigit " << std::isdigit(e) << endl;
+			std::cout << "isblank " << std::isblank(e) << endl;	
+			std::cout << "isalpha " << std::isalpha(e) << endl;
+			//break;	
+		}
+	
+	//return ok_flag;
+}
+
+
+
+int main()
+{
+	// while(true)
+	{
+		
+		// char i;
+		// cin >> i;
+
+		// printStates(cin);
+		
+		// cout << i << endl;
+
+		/*
+		cout << boolalpha;
+		cout << std::bitset<8>(cin.rdstate()) << endl;
+		cout << std::bitset<8>(std::istream::goodbit) << endl;
+		cout << std::bitset<8>(std::istream::failbit) << endl;
+		// cout << !bool((cin.rdstate() & std::istream::failbit) != 0) << endl; // rdstate - bit flag
+		cin.rdstate() == std::istream::goodbit; // 위와 같음
+		*/
+		
+		/*
+		printCharacterClassification(i); // 원하는 문자냐?
+
+		cin.clear();
+		cin.ignore(1024, '\n');
+		cout << endl;
+		*/
+		cout << boolalpha;
+		isAllDigit("1234");
+		isAllDigit("a 1234");
+		
+		// regular expression
+	}
+	
+	return 0;
+}

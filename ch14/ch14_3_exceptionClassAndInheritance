@@ -1,0 +1,96 @@
+/*
+ 	예외 클래스와 상속
+	사용자 정의 자료형
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Exception
+{
+	public:
+	void report()
+	{
+		cerr << "Exception report" << endl;
+	}
+};
+
+class ArrayException : public Exception 
+{
+	public:
+	void report()
+	{
+		cerr << "Array Exception " << endl;
+	}
+};
+
+class MyArray
+{
+	private:
+	int m_data[5];
+	
+	public:
+	int & operator [] (const int & index)
+	{
+		// Exception 클래스를 던진다.
+		// if(index < 0 || index >= 5) throw - 1;
+		if(index < 0 || index >= 5) throw ArrayException();
+		
+		return m_data[index];
+	}
+};
+
+void doSomething()
+{
+	MyArray my_array;
+	
+	try
+	{
+		my_array[100];
+	}
+	
+	catch (const int & x)
+	{
+		cerr << "Exception " << x << endl;
+	}
+	
+	// catch에서 arrayException이 없기떄문에 
+	// 객체 잘림 현상이 발생한다.
+	// 부모클래스가 먼저 캐치가 되어버리면 잘린다. 
+	// 자식클래스가 먼저 나오게 캐치 순서를 바꿔주자
+	catch (ArrayException & e)
+	{
+		cout << "doSomething()" << endl;
+		e.report();
+		// re-throw 캐치해서 다시 던짐 
+		// 다시 던짐으로써 밖에있는 main에서 받아줌
+		throw e;
+	}
+	
+	catch (Exception & e)
+	{
+		cout << "doSomething()" << endl;
+		e.report();
+		throw e;
+		// throw
+	}
+	
+
+}
+
+
+int main()
+{
+	try
+	{
+		doSomething();
+	}
+	catch (ArrayException & e)
+	{
+		cout << "main()" << endl;
+		e.report();
+	}
+	
+	return 0;
+}

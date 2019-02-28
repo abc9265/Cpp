@@ -1,0 +1,22 @@
+#include "Calc.h"
+
+// Calc::add - Calc라는 클래스의 멤버다
+// 클래스 안에 멤버펑션의 definition을 전부 해놨을때는
+// inlining하는것으로 간주한다.
+// cpp파일은 using namespace가 영향을 주는경우가 적어서
+// 여기에 써도 된다
+using namespace std;
+
+Calc::Calc(int init_value)
+	: m_value(init_value)
+	{}
+
+Calc& Calc::add(int value) {m_value += value; return *this;}
+Calc& Calc::sub(int value) {m_value -= value; return *this;}
+Calc& Calc::mult(int value) {m_value *= value; return *this;}
+
+void Calc::print()
+{
+		using namespace std;
+		cout << m_value << endl;
+}

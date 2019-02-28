@@ -1,0 +1,67 @@
+/*
+	R-Value References
+	오른쪽-값 참조
+*/
+
+#include <iostream>
+
+using namespace std;
+
+void doSomething(int &lref)
+{
+	// Move semantics로 가져오면 문제가 생김, 외부에서도 사용할 수 있기 떄문
+	cout << "L-value ref" << endl;
+}
+
+
+void doSomething(int &&ref)
+{
+	// Move semantics로 가져와도 문제가 생기지않음
+	cout << "R-value ref" << endl;
+}
+
+
+int getResult()
+{
+	return 100 * 100;
+}
+
+
+int main()
+{
+	int x = 5;
+	int y = getResult();
+	const int cx = 6;
+	const int cy = getResult();
+	
+	
+	// L-value references
+	
+	int &lr1 = x; // Modifiable l-values
+	//int &lr2 = cx; // Non-modifiable l-values
+	//int &lr3 = 5; // R-values; 
+	// 이후에 사용이 될때 참조하는 메모리가 있다는걸 전제하고 들어감
+	
+	const int &lr4 = x; // Modifiable l-values;
+	const int &lr5 = cx; // Non - Modifiable l-values;
+	const int &lr6 = 5; // R-values;
+	
+	// R-value References 
+	
+	// int &&rr1 = x; // Modifiable l-values
+	// int &&rr2 = cx; // Non-modifiable l-values
+	int &&rr3 = 5; // R-values
+	// 임시로만 존재하는것을 어딘가에 저장할 수 있게 해줌 곧 사라질 것들만 넣을 수 있음
+	
+	// const int &&rr4 = x; // Modifiable l-values
+	// const int &&rr5 = cx; // Non-Modifible l-values;
+	const int &&rr6 = 5;
+	
+	// L/R-value reference parrameters 
+	doSomething(x);
+	//doSomething(cx);
+	doSomething(5);
+	doSomething(getResult());
+	
+	return 0;
+}

@@ -1,0 +1,39 @@
+
+// 함수의 선언(Declation)과 정의(Definition)의 분리
+// 읽기 편하도록 메인을 맨위로 올리고
+// 그 전의 함수들이 main함수 전에 없을경우 에러가 나옴 
+// 따라서 함수를 미리 선언해둬야함. 함수의 형태를 미리 선언해둠. 
+// 전방선언(forward declation)
+
+#include <iostream>
+
+using namespace std;
+
+int add(int a, int b); // forward declation
+int multiply(int a, int b);
+int subtract(int a, int b);
+int main()	
+{
+	cout << add(1, 2) << endl;
+	
+	return 0;
+}
+
+// definition
+int add(int a, int b)
+{
+	return a + b;	
+}
+
+int multiply(int a, int b)
+{
+	return a * b;
+}
+
+int subtract(int a, int b)
+{
+	return a - b;
+}
+
+
+

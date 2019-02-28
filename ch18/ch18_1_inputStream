@@ -1,0 +1,104 @@
+/*
+	Istream
+*/
+
+#include <iostream>
+#include <string>
+#include <iomanip> // input/output manipulator
+
+using namespace std;
+
+int main()
+{
+	/*
+	// stream -> buffer에 일시적으로 저장된걸 조금씩 꺼내오는 방식임
+	char buf[5];
+	
+	// input stream이 버퍼를 가지고있어 버퍼에 내용이 들어가고 그중에서 다섯개만 가져옴
+	cin >> setw(5) >> buf;
+	
+	cout << buf << endl;
+	
+	cin >> setw(5) >> buf;
+	
+	cout << buf << endl;
+	
+	cin >> setw(5) >> buf;
+	
+	cout << buf << endl; // 버퍼로부터 순차적으로 가져오는 방식
+	
+	cout << "----------------------" << endl;
+	*/
+	
+	/*
+	char ch;
+	
+	// 빈칸이 사라짐
+	while(cin >> ch)
+		cout << ch;
+	*/
+	
+	/*
+	
+	char ch;
+	char buf[100];
+	// 빈칸도 받아들이고싶음.rr
+	//while (cin.get(ch))
+		//cout << ch; 
+	
+	
+	cin.get(buf, 5);
+	// cin.getline(buf, 100); // 라인단위로 읽어들임. 라인을 일단 전부 읽어옴. 따라서 읽은 후 버퍼가 비어버림
+	cout << cin.gcount() << " " << buf << endl; // 몇글자 읽어들였나 출력함
+
+	
+	// cin.get(buf, 5);
+	cin.getline(buf, 100); // 라인단위로 읽어들임. 라인을 일단 전부 읽어옴. 따라서 읽은 후 버퍼가 비어버림 
+	// 줄바꿈 캐릭터까지 같이 읽어옴
+
+	cout << cin.gcount() << " " << buf << endl; // 몇글자 읽어들였나 출력함
+	
+	*/
+	
+	
+	/*
+	// 빈칸으로 구분을 해줌
+	int i;
+	float f;
+	cin >> i >> f;
+	cout << i << " " << f << endl;
+	*/
+	
+	
+	/*
+	string buf;
+	
+	getline(cin, buf); // == cin.getline(buf) 스트링을 쓸때는 이런 형식을 씀
+	cout << cin.gcount() << " " << buf << endl;
+	*/
+	
+	
+	
+	char buf[1024];
+	
+	cout << (char)cin.peek() << endl; // 버퍼를 들여다보기만하고 실제로 꺼내지는 않음.
+	
+	// cin.ignore(); // 입력받을 때 한글자를 무시함.
+	// cin.ignore(2); // 안의 파라미터는 몇글자나 무시하냐의 차이임
+	
+	cin >> buf;
+	cout << buf << endl;
+	
+	cin.unget(); // 마지막에 읽은것을 도로 집어넣음
+	
+	cin >> buf;
+	cout << buf << endl;
+	
+	cin.putback('A'); // 원하는 글자를 버퍼에 다시 넣음
+	
+	cin >> buf;
+	cout << buf << endl;
+	
+	
+	return 0;
+}

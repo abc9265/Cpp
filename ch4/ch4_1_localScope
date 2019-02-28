@@ -1,0 +1,70 @@
+/*
+	Local Variables, Scope, Duration
+	후에 동적할당을 배우게되면 범위와 지속기간이 다를 수 있음.
+	현대 프로그래밍에서는 변수의 Duration을 최대한 줄이려고 함
+	그래서 블록으로 쌈
+	메모리를 차지하는건 딱 하나밖에 없다.
+	함수,
+	이름이 같은데 파라미터가 다른 경우는 다른 함수로 친다.
+	파라미터도 같고 이름도 같고 리턴값도 같으면 같은걸로 친다.
+	이때 같은 이름을 쓰고싶으면 중괄호로 값을 나누고
+	네임스페이스를 이용한다.
+	:: -> 범위, 영역 결정 연산자 scope, resolution (충돌이 났을때 해결해준다) 
+	
+*/
+
+#include <iostream>
+
+namespace work1
+{
+	// nested namespace 지원 근데 복잡하니까 
+	// 밑에같이 쓸 수도 있음 C++17부터 지원함
+	// namespace work1::work11::work111
+	int a = 1;
+	void doSomething()
+	{
+		a += 3;
+		std::cout << a <<  std::endl;
+	}
+}
+namespace work2
+{
+	int a = 1;
+	void doSomething()
+	{
+		a += 5;
+		std::cout << a <<  std::endl;
+	}
+}
+
+
+int main()
+{
+	using namespace std;
+	
+	// 메모리 공간을 OS로부터 받아옴.
+	int apple = 5;
+	cout << "apple : " << apple << endl;
+	
+	// 중괄호를 이용해 범위 지정
+	{	
+		apple = 1;	// 안에있는 apple과 밖에있는 apple이 같음
+		cout << "apple : " << apple << endl;
+		
+		// 이 apple은 밖에있는 apple과 다름
+		// 밖에있는 apple이 name hiding됨 
+		int apple = 3;
+		cout << "apple2 : " << apple << endl;
+	}
+	
+	cout << "apple : " << apple << endl;
+	
+	
+	work1::a;
+	work1::doSomething();
+	
+	work2::a;
+	work2::doSomething();
+	
+	return 0;
+}

@@ -1,0 +1,23 @@
+/*
+	evaluate Running Time
+	실행시간 측정하기
+	코드가 쓰기엔 너무 길다
+	필요하면 검색한뒤에 복붙하고 타이머 클래스로 만들어서 쓰면 편함
+	release모드가 develop모드보다 훨씬 빠름
+*/
+
+#include <iostream>
+#include <vector>
+#include <algorithm>
+#include <random>
+#include <chrono>
+
+using namespace std;
+
+int main()
+{
+	
+	
+	
+	return 0;
+}

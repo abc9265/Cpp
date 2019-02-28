@@ -1,0 +1,34 @@
+/*
+	command Line Arguments
+	명령줄 인수
+	오퍼레이터가 실행시 파라미터 두개를 가져다줌
+	boost 라이브러리 . 준 표준정도라고 생각하면 되는데 boost.program_options를 사용하면
+	커맨드라인 오퍼레이팅할때에 사용하면 좋다.
+*/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// 첫번째 개수, 두번째 실제 내용
+// 실행파일 이름이 나옴
+int main(int argc, char *argv[]) 
+{
+	for(int count = 0; count < argc; ++count)
+	{
+		std::string argv_single = argv[count];
+		
+		if(count == 1)
+		{
+			int input_number = std::stoi(argv_single); // 스트링 -> 정수로 변경
+			cout << input_number + 1 << endl;
+		}
+		else
+			cout << argv_single << endl;
+	}
+	
+	
+	
+	return 0;
+}

@@ -1,0 +1,104 @@
+/*
+	Global Variable, Static Variable,
+	Internal Linkage, External Linkage
+	내부 연결, 외부 연결
+	
+	전역변수 - 가급적 사용X
+	C++파일 -> obj파일 -> 연결(Linking)
+	변수 선언을 했는데 이 파일 안에서는 어디서든 사용할 수 있다
+	-> Internal Linkage
+	한 C++파일 에서 선언한 변수를 다른 C++파일에서도 사용할 수 있다
+	-> External Linkage 
+	
+	Linkage 
+	Linking --> 링킹한다 
+	Linkage --> 연결 그 자체를 의미하는 뉘앙스가 좀 더 강함
+	링커는 링킹 단계에서 Local variables는 알 필요가 없음
+	Internal Linkage -> 파일 안 어디서나 사용할 수 있는 Linkage
+	static int g_a --> 다른 cpp파일에서 접근이 불가함
+	External Linkage --> 외부에서도 사용가능하다
+*/
+
+/*
+	int g_x; // external linkage
+	static int g_x; // internal linkage;
+	const int g_x; // X
+	extern int g_z; 
+	extern const int g_z; // 다른 어딘가에서 초기화를 해줘야함
+	
+	int g_y(1);
+	static int g_y(1); 
+	const int g_y(1);
+	
+	extern int g_w(1); // 초기화를 하면 다른곳에서는 초기화를 하면 안된다.
+	extern const int g_w(1); // 상수고 초기화가 됬고 외부에서도 접근할 수 있다.
+	
+	cpp파일을 왜 external, internal의 기준으로 삼느냐?
+	cpp파일이 컴파일 된 obj파일을 서로 엮어주는게 링킹의 개념이기 때문이다.
+*/
+
+#include <iostream>
+#include "MyConstants.h"
+
+using namespace std;
+
+int value = 123; // global variable
+
+// a의 본체가 없기때문에 오류가 남 ( 초기화를 안해서 할당이 안되있음 );
+extern int a; 
+extern void doSomething2(); // extern은 생략가능 
+
+// 정적 지속 변수
+void doSomething()
+{
+	/*
+		static
+		변수 a가 os로부터 받은 값이 static이라는 뜻 
+		
+		그냥 int a = 1; 이거는 메모리 주소를 가졌다 반납했다가함
+		static은 같은 메모리를 쓰고 초기화를 한번밖에 안함
+		Design Pattern의 싱글턴과 비슷함
+		디버깅할때 (몇번 호출되는지 세볼 때)
+		Unique ID를 지정할 때 그럴경우에 사용할 수 있음
+		일반적인 경우에는 좀 주의해서 사용
+		전역변수의 경우 
+		다른 cpp파일에서 값을 바꾸다보면
+		어디서 바꾸는지 알 수가 없음 
+		그래서 너무 복잡해짐
+		전역과 static의 차이는 아무튼 static은 로컬임 다른곳에서 접근이 안됨
+		
+		1. 설계를 좀 더 잘하기 
+		2. a에다가 g_a처럼 글로벌 변수인걸 눈에 확 띄게 해두기
+		가장 좋은 방법은 객체 지향을 써서 전역변수를 안쓰게 프로그램 설계하기
+	*/
+	static int a = 1;
+	++a;
+	cout << "doSomething! " << a << endl;
+}
+
+
+
+int main()
+{
+	doSomething();
+	doSomething();
+	doSomething();
+	doSomething();
+	doSomething2(); 
+	cout << a << endl;
+	
+	cout << value << endl; // 전역변수 출력
+	
+	int value = 1; // Local variable, 영역을 벗어나면 메모리가 OS로 반납됨
+	
+	cout << value << endl;	// 지역변수 출력
+	cout << ::value << endl; // 전역변수 출력 :: -> 다른 영역에있는 변수 이용
+	
+	// 두개의 인클루드한 Constants::pi의 주소값이 다름(헤더안에 넣을경우)
+	cout << "In main.cpp file " << 
+		Constants::pi << " " << &Constants::pi << endl;
+	doSomething2(); 
+	
+	
+	return 0;
+}

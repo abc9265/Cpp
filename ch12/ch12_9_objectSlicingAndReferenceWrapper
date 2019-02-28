@@ -1,0 +1,75 @@
+/*
+ 	Object slicing And reference_wrapper
+	보다 작은 부모의 객체에 보다 큰 자식의 객체를 강제로 대입한다면
+	자식클래스에만 있는 정보들은 잘려서 사라져버림
+	다형성 구현할때 만들어지는 경우가 있음.
+	이를 해결하기 위한게
+	reference_wrapper
+*/
+
+#include <iostream>
+#include <vector>
+#include <functional>
+
+using namespace std;
+
+
+class Base
+{
+	public:
+	int m_i = 0;
+	
+	virtual void print()
+	{
+		cout << "I'm Base" << endl;
+	}
+};
+
+
+class Derived : public Base
+{
+	public:
+	int m_d = 0.0;
+	
+	virtual void print() override
+	{
+		cout << "I'm derived" << endl;
+	}
+	
+};
+
+
+void doSomthing(Base & b) // 이거도 &를 때버리게되면 복사가 되면서 슬라이싱됨
+{
+	b.print();
+}
+
+
+int main()
+{
+	
+	Derived d;
+	Base &b = d;
+	
+	b.print();
+	
+	// 더 무서운건 이렇게하면 다형성이 사라짐
+	// 의도적으로 slicing을 사용할꺼면 주석을 남겨두자
+	// b = d; // &를 빼게되면 복사됨 근데 자식클래스가 더 크므로 잘리게됨
+	
+	// 둘 다 I'm Base가 나옴 
+	// Base에 슬라이싱됬기때문
+	// 벡터에는 레퍼런스를 넣을 수 없음 따라서 포인터로 구현해야함
+	// 꼭 레퍼런스를 넣고싶으면 reference_wrapper를 쓰면됨
+	// std::vector<Base&> my_vec 처럼 작동된다.
+	std::vector<std::reference_wrapper<Base>> my_vec; 
+	my_vec.push_back(b);
+	my_vec.push_back(d);
+	
+	
+	for(auto & ele : my_vec)
+		ele.get().print(); // base의 레퍼런스를 가져오기위해 get함수를 사용함
+	
+	
+	return 0;
+} 

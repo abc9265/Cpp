@@ -1,0 +1,83 @@
+/*
+	람다(lambda)함수와 std::function
+	익명함수라고도 부름. anonymous function
+*/
+
+#include <iostream>
+#include <string>
+#include <vector>
+#include <algorithm> // for-each
+#include <functional>
+
+using namespace std;
+
+void goodbye(const string & s)
+{
+	cout << "Goodbye " << s << endl;
+}
+
+class Object
+{
+	public:
+	void hello(const string & s)
+	{
+		cout << "Hello " << s << endl;
+	}
+};
+
+int main()
+{
+	// lambda-introducer
+	// lambda-parameter-declaration
+	// lambda-return-type-clause
+	// compound-statement
+	auto func = [](const int & i) -> void { cout << "Hello, World!" << endl;}; 
+	// [](const int & i) -> void { cout << "Hello, World!" << endl;} (1234) // 익명인 경우에 더 많이 쓰임
+	
+	func(123);
+	
+	{
+		string name = "JackJack";
+		
+		// [&] - 람다가 정의된 영역 안에서 밖에있는 것들을 레퍼런스로 가져옴
+		// [=] - name copy
+		// [this] - class pointer
+		[&]() {std::cout << name << endl; }();  
+	}
+	
+	vector<int> v;
+	v.push_back(1);
+	v.push_back(2);
+	
+	auto func2 = [](int val) {cout << val << endl;};
+	for_each(v.begin(), v.end(), func2);
+	//for_each(v.begin(), v.end(), [](int val) {cout << val << endl;});
+	
+	cout << []() -> int {return 1;}() << endl;
+	
+	
+	
+	
+	
+	// std::functional 사용법
+	std::function<void(int)> func3 = func2; // function pointer를 체계화 시켜준것 <returntype(parametertype)>
+	func3(123);
+	
+	// 파라미터가 있는게 불편하다. - bind 사용 묶어주는것 int를 아예 bind해주는것 456이 들어가서 묶여있으니까 노상관
+	std::function<void()>func4 = std::bind(func3, 456);
+	
+	// https://en.cppreference.com/w/cpp/utility/functional/placeholders
+	{
+		// 파라미터가 여러개있으면 placeholder를 쓸 수 있다.
+		Object instance;
+		auto f = std::bind(&Object::hello, &instance, std::placeholders::_1); // 파라미터가 1개라 플레이스홀더 1개
+		
+		f(string("World"));
+		
+		auto f2 = std::bind(&goodbye, std::placeholders::_1); // goodbye의 포인터
+		
+		f2(string("World"));
+	}
+	
+	return 0;
+}

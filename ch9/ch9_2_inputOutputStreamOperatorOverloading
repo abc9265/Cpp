@@ -1,0 +1,67 @@
+/*
+	입출력 연산자 오버로딩하기. << >>
+*/
+
+#include <iostream>
+#include <fstream> // 파일스트림 
+
+using namespace std;
+
+class Point
+{
+	private:
+	double m_x, m_y, m_z;
+	
+	public:
+	Point(double x = 0.0, double y = 0.0, double z= 0.0)
+		: m_x(x), m_y(x), m_z(z)
+	{}
+	
+	double getX() {return m_x;}
+	double getY() {return m_y;}
+	double getZ() {return m_z;}
+	
+	/*void print()
+	{
+		cout << m_x << " " << m_y << " " << m_z;
+	}*/
+	
+	
+	
+	// 입출력연산자 오버로딩
+	// 리턴타입으로 아웃풋스트림이 있기떄문여 연쇄가 가능한다
+	friend std::ostream& operator << (std::ostream &out, const Point &point)
+	{
+		out << "( " << point.m_x << " " << point.m_y << " " << point.m_z << " )";
+		return out; // 연쇄를 위한 return
+	}
+	
+	friend std::istream& operator >> (std::istream &in, Point &point)
+	{
+		in >> point.m_x >> point.m_y >> point.m_z;
+		
+		return in; // 연쇄를 위한 return
+	}
+};
+
+int main()
+{
+	Point p1, p2; 
+	
+	ofstream of("out.txt"); // 아웃풋 파일 스트림
+	
+	/*
+	p1.print();
+	cout << " ";
+	p2.print();
+	cout << endl;
+	*/
+	cin >> p1 >> p2;
+	
+	cout << p1 << " " << p2 << endl;
+	of << p1 << " " << p2 << endl;
+	
+	of.close();
+	
+	return 0;
+}

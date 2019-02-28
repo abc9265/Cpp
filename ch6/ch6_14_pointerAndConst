@@ -1,0 +1,60 @@
+/*
+	Pointer and const	
+*/
+
+
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+	
+	const int value = 5;
+	const int *ptr = &value;
+	
+	// value의 값을 바꿀수는 없고, 주소를 가져와서 value를 읽을 수는 있음.
+	// value = 6; 이 안되기 때문.
+	// *ptr = 6; 
+	
+	cout << *ptr << endl;
+	
+	// 이렇게도 할 수 있지만 포인터로 값을 바꿀 수는 없다.
+	int value2 = 6;
+	const int *ptr2 = &value2;
+	// *ptr2 = 6;
+	value2 = 7; 
+	
+	cout << "value2: ";
+	cout << *ptr2 << endl;
+	
+	int value3 = 6;
+	
+	// 이건 됨
+	// 포인터는 주소값을 지정하는데 가르키는 값의 입력값을 안바꾸겠다는 것을 의미하는것이지
+	// 주소값을 바꾸는거를 안바꾸겠다는 의미는 아니다.
+	// 역참조를 했을때 값을 바꿀 수는 없음.
+	ptr = &value3;
+	
+	
+	
+	// 포인터를 상수로 바꿈. 
+	int value4 = 5;
+	int *const ptr4 = &value4;
+	
+	*ptr4 = 10;
+	cout << *ptr4 << endl;
+	
+	// ptr4 = &value2 // 이건 안됌
+	
+	int value5 = 5;
+	const int *const ptr5 = &value5;// 초기화를 반드시 해야함
+	
+	
+	// const 포인터의 종류들
+	int value6 = 5;
+	const int *ptr6 = &value6;
+	int *const ptr7 = &value6;
+	const int *const ptr8 = &value6;
+	
+	return 0;
+}

@@ -1,0 +1,20 @@
+/*
+ 	Virtual Tables
+	가상함수 표
+	다형성을 사용할때는 상속구조에 따라서 가상함수들이 어떻게 호출될지 결정되는데
+	이때 표를 만들고 사용하게됨
+	virtual 키워드를 만나면 표를 만들고 동적바인딩을 하게됨
+	func_ptr을 거쳐가는 구조로 보면됨
+*/
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	
+	
+	
+	return 0;
+}

@@ -1,0 +1,63 @@
+/*
+ 	상속의 기본 [1/2]
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Mother // Generalized Class 일반화된것들을 뽑아서 만듬
+{
+	// private: // 자식한테도 허용이 안됨
+	protected: // 자식에게는 허용함
+	int m_i;
+	
+	public:
+};
+
+// 상속을 받는다는 뜻 
+// Mohter 클래스의 함수들을 쓸 수 있다.
+// Child 클래스가 호출될때는 Mother클래스를 같이 호출한다.
+// 기본적으로 Mother class의 디폴트 컨스트럭터를 호출함 
+class Child : public Mother // derived class라고도 함
+{
+	private:
+	double m_d;
+	
+	public:
+	Child(const int & i_in, const double & d_in)
+	{
+		
+	}
+	void setValue(const int& i_in, const double & d_in)
+	{
+		m_i = i_in;
+	}
+	
+	void setValue(const double & d_in)
+	{
+		m_d = d_in;
+	}
+	
+	double getValue()
+	{
+		return m_d;
+	}
+};
+
+class Daughter : public Mother
+{
+
+};
+
+class Son : public Mother
+{
+
+};
+
+int main()
+{
+	
+	
+	return 0;
+}

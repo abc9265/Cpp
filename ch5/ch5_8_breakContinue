@@ -1,0 +1,71 @@
+/*
+	break, Continue
+*/
+
+#include <iostream>
+
+using namespace std;
+
+void breakOrReturn()
+{
+	while(true)
+	{
+		char ch;
+		cin >> ch;
+		if(ch == 'b')
+			break;
+		
+		if(ch == 'r')
+			return;
+	}
+	
+	cout << "Hello" << endl;
+}
+
+int main()
+{
+	//breakOrReturn();
+	
+	for (int i = 0; i < 10; ++i)
+	{
+		cout << i << endl;
+		if(i == 5) break;
+	}
+	
+	for (int i = 0; i < 10; ++i)
+	{
+		if( i % 2 == 0) continue;
+		cout << i << endl;
+	}
+	
+	// while문 안에 증감까지 넣어버리고 있음 
+	// 만약 안에다가 count++를 넣게되면 continue때문에 5 이후에 증가가 되지 않음 
+	// 무한루프에 빠지기때문에 조건에 count++를 넣는것
+	int count(0);
+	do 
+	{
+		if (count == 5)
+			continue;
+		
+		cout << count << endl;
+	}
+	while (++count < 10);
+	
+	// while문으로 어떻게 짜면 좋을까. 
+	// 특정한 키를 받으면 더이상 입력받지 않고 끝내도록 
+	// 사용자 정의변수를 while안에 넣으면 느려질 수도 있기 때문에
+	// while밖으로 변수를 빼주는게 효율성에 도움이 될 수 있다.
+	// escape_flag를 따로 사용하면 불편함 
+	// break문을 사용하면 사용하지 않고서도 할 수 있음.
+	bool escape_flag = false;
+	
+	while (true)
+	{
+		char ch;
+		cin >> ch;
+		
+		if(ch =='x')
+			break;
+	}
+	return 0;
+}

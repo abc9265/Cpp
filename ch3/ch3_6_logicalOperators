@@ -1,0 +1,70 @@
+/*
+	논리연산자(Logical Operators)
+*/
+
+#include <iostream>
+
+int main()
+{
+	using namespace std;
+	
+	// logical NOT x;
+	bool x = true;
+	bool y = false;
+	bool hit = true;
+	int health = 10;
+	
+	if (hit == true && health < 20) // if를 나눌수도 있지만 왠만하면 논리연산자로.
+		cout << "die " << endl;
+		
+	
+	cout << !x << endl;
+	cout << (x && y) << endl; // &가 하나면 bit연산자가 된다.
+	cout << (x || y) << endl; // logical or
+	
+	int a = 5;
+	int b  = 7;
+	
+	if(!a == b) // 우선순위때문에 !(x==y)가 아님
+	{
+		cout << " a does not equal b" << endl;
+	}
+	else
+		cout << " a equals b " << endl;
+	
+	// short circuit evaluation
+	int q = 1;
+	int w = 2;
+	
+	// &&는 왼쪽에있는게 false가 되버리면 오른쪽건 계산을 안한다.
+	if ( q == 2 && w++ == 2) 
+	{
+		// do something
+	}
+	
+	// 그래서 여기서 w는 2가됨.
+	
+	cout << w << endl;
+	
+	// De Morgan's Law
+	!(x && y); // !x && !y 이게 아님, !x && !y;임 
+	/*
+		XOR 진리표 
+		false false false
+		false false true
+		true  false true
+		true  true  false
+	*/
+	
+	bool v1 = true;
+	bool v2 = false;
+	bool v3 = false;
+	
+	bool r1 = v1 || v2 && v3;
+	bool r2 = (v1 ||  v2) && v3;
+	bool r3 = v1 || (v2 && v3); // logical and의 우선순위 >> logical or의 우선순위
+	
+	cout << r1 << endl;
+	cout << r2 << endl;
+	return 0;
+}

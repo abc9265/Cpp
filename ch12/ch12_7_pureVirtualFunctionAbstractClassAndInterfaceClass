@@ -1,0 +1,95 @@
+/*
+ 	순수 가상함수, 추상 기본 클래스, 인터페이스 클래스
+	설계를 하는 관점에서 기본 클래스를 만들때 반드시 이런걸 해야한다는 
+	제약을 걸어두고 이러이러한 이유를 들고 만들었다는걸 지킬 수 있게 강제하는 방법
+	순수 가상 함수 - Body가 없음. 반드시 overriding해줘야한다
+	순수 가상 함수가 포함된 함수 추상 기본클래스
+	순수 가상함수로만 이루어진 클래스
+	인터페이스 클래스
+*/
+
+#include <iostream>
+#include <string>
+
+using namespace std;
+
+// 자기는 아무것도 할줄아는게 없는데 ~해야한다를 알려줌 
+// 상속받은애들은 이런걸 전부 할 줄 안다.
+class IErrorLog // 인터페이스를 구현할때는 I를 붙여주는게 관습임
+{
+	public:
+	virtual void reportError() = 0 ;
+};
+
+
+
+// 나는 모르겠다
+// 자식클래스에서는 반드시 구현하라
+class Animal
+{
+	protected:
+	string m_name;
+	
+	public:
+	Animal(std::string name)
+		: m_name(name)
+		{}
+	
+	public:
+	string getName() { return m_name; }
+	
+	virtual void speak() const = 0; // pure virtual Function
+	// 별도로 body를 정의할 수도 있긴함
+};
+
+void Animal::speak() const // thie body of pure virtual function
+{
+	
+}
+
+class Cat : public Animal
+{
+	public:
+	Cat(string name)
+		: Animal(name)
+		{}
+	
+	void speak() const
+	{
+		cout << m_name << "Meow " << endl;
+	}
+};
+
+
+class Dog : public Animal
+{
+	public:
+	Dog(string name)
+		: Animal(name)
+		{}
+	
+	void speak() const
+	{
+		cout << m_name << "Woof " << endl;
+	}
+};
+
+class Cow : public Animal
+{
+	public:
+	Cow(string name)
+		: Animal(name)
+		{}
+	
+};
+
+
+int main()
+{
+	// Animal animal("Hi"); // 아예 인스턴스를 만들수가 없음
+	// Cow cow("Hello"); // pure function인 speak를 구현하지 않아 만들 수 없음
+	
+	// interface class - ~을 해야한다만 들어가있는 클래스 
+	// 외부에서 사용을 할때 이러이러한 기능이 있다는 걸 확인할 수 있는 중계기 역할을 해줌
+	return 0;
+}

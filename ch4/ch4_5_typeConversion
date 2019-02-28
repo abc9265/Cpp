@@ -1,0 +1,64 @@
+/*
+	Type Conversion
+	암시적 형변환 : 프로그래머가 요청하지 않은것, 컴파일러가 알아서 형변환 하는것
+	
+*/
+
+#include <iostream>
+#include <typeinfo> 
+#include <iomanip>
+
+int main()
+{
+	using namespace std;
+	
+	int a = 123;
+	int b = 1.0; // 암시적 형변환 발생, 데이터를 복붙하는게 아니라 뭔가 변환하는것
+	
+	// data literal이나 변수명을 집어넣은 다음에 .name()을 집어넣으면
+	// literal이 어떠한 데이터 타입인지 출력해줌
+	cout << typeid(a).name() << endl;
+		
+	/*
+		형변환 규칙
+		암시적 형변환.
+		1. 작은것 -> 큰것으로 
+	*/
+	// numeric promotion
+	float x = 1.0f;
+	double y = x; // 작은것 -> 큰것으로 형변환
+	
+	// numberic conversion
+	double d = 3;
+	short s = 2; // 큰것을 작은걸로 바꾸거나 타입이 바뀌는것. 문제가 될 수도 있음.
+	
+	int i = 30000;
+	char c = i; // 값에 문제가 생김 30000 -> 48이됨, 작은값일때는 이상없음
+	cout << static_cast<int>(c) << endl;
+	
+	double q = 0.123456789;
+	float w = d;
+	cout << std::setprecision(12) << w << endl;
+	
+	/*
+		unsigned 문제 
+		unsigned끼리 넣은것은 unsigned에 넣으려고 함
+		형변환도 우선순위가 있음
+		4바이트보다 작은것들 - int로 변환
+		변환 우선순위 int, unsigned int, long, unsigned long,
+		long long, unsigned long long, float, double, long double 순
+	*/
+	cout << 5u - 10 << endl; // unsigned에서 빼면 이상한 수가 나옴. 
+	cout << 5u - 10u << endl; // unsigned가 int보다 우선순위가 더 높기 때문
+	
+	
+	/*
+		명시적 형변환
+		C++스타일
+		int i = int(4.0) int로 된 4.0을 만들어서 i에 집어넣음
+		int i = static_cast<int>(4.0)
+		C스타일
+		int i = (int)4.0
+	*/
+	return 0;	
+}

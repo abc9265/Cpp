@@ -1,0 +1,43 @@
+/*
+	array2
+*/
+
+
+#include <iostream>
+
+using namespace std;
+
+// 파라미터에서 새로 선언하고 복사해서 넣고있음 그래서
+// main내의 값과 파라미터의 값이 같지 않음.
+// main내의 값이 크다면 파라미터에 항상 복사하기때문에
+// 효율이 좋지 못하다.
+void doSomething(int students_score[20]) 
+{
+	cout << &students_score[0] << endl;
+	cout << students_score[1] << endl;
+	cout << students_score[2] << endl;
+	// cout << "Size in doSomething " << sizeof(students_score) << endl;
+	// 파라미터는 포인터를 받아옴
+}
+
+int main()
+{
+	
+	const int num_students = 20;
+	
+	int students_score[num_students] = {1, 2, 3, 4, 5, };
+	
+	cout << &students_score << endl; // 0번 인덱스와 같은 주소를 가리킴
+	cout << &(students_score[0]) << endl;
+	cout << &(students_score[1]) << endl;
+	cout << &(students_score[2]) << endl;
+	cout << &(students_score[3]) << endl;
+	cout << "Size in main " << sizeof(students_score) << endl;
+	
+	cout << sizeof(students_score) << endl;
+	
+	doSomething(students_score); // array를 함수의 파라미터로 넣어줄 수 있다.
+	cout << &students_score << endl;
+	
+	return 0;
+}

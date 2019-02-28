@@ -1,0 +1,22 @@
+/*
+  	Creation and initialization of Derived Class
+*/
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	/*
+	cout << sizeof(Mother) << endl;
+	cout << sizeof(Child) << endl; 
+	Child의 크기는 Mother의 크기를 포함한다.
+	Child 클래스에서 메모리를 할당할 때는
+	Mother 클래스도 전부 담을만큼 크게 할당을 받는다.
+	컨스트럭터는 A -> B -> C 순서로
+	디스트럭터는 C -> B -> A 순서로 실행된다.
+	*/
+	
+	return 0;
+}

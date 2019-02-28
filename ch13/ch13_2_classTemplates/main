@@ -1,0 +1,23 @@
+/*
+	class Templates
+*/
+
+#include "MyArray.h"
+
+using namespace std;
+
+
+int main()
+{
+	// class Templte를 사용할 때 파라미터로 들어갈 argument의 값을 설정해줘야한다
+	// 그래서 Myarray<int> 이런식으로 사용함.
+	MyArray<double> my_array(10);
+	
+	for (int i = 0; i < my_array.getLength(); ++i)
+		my_array[i] = i * 0.5;
+	
+	my_array.print();
+	
+	
+	return 0;
+}

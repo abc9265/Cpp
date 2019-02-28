@@ -1,0 +1,16 @@
+#include <iostream>
+
+using namespace std;
+
+int main(int argc, char* argv[]) {
+	int x = 0;
+	int y = 1;
+	int z = 2;
+	
+	std::cout << x << endl;	
+	std::cout << &y << std::endl;
+	std::cout << x+y << std::endl;
+	cout << "Hello, goorm!" << endl;
+	
+	return 0;
+}

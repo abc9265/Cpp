@@ -1,0 +1,74 @@
+/*
+ 	Move semantics And Smart Pointer
+	'이동'의 의미와 스마트포인터 소개
+*/
+
+#include <iostream>
+#include "Resource.h"
+#include "AutoPtr.h"
+
+using namespace std;
+
+// RAII : resource acquisition is initialization
+// 리턴을해서 나가기전에 더이상 사용하지 않겠다라고 delete를 해줘야한다. 
+// new한곳에서 delete를 해줘야한다 -> RAII 보통 클래스안에 묶어둠
+// try, catch문에서도 문제가 생길 수 있다.
+void doSomething()
+{
+	try
+	{
+	// Resource *res = new Resource;  // dull pointer
+	AutoPtr<Resource> res(new Resource); // smart Pointer
+	
+	// work with res
+	// if(true) return; // early return, delete를 수행하지 않음
+	// 번거롭기때문에 항상 자동으로 관리해줄수있는 클래스를 만드는것
+	if(true) 
+	{
+		throw - 1; // exception
+	}
+		
+	}
+	
+	
+	catch (...)
+	{
+		
+	}
+	
+	return;
+}
+
+int main()
+{
+	doSomething();
+	
+	// auto pointer의 한계
+	{
+		AutoPtr<Resource> res1(new Resource);
+		AutoPtr<Resource> res2;
+		
+		cout << std::boolalpha;
+		
+		cout << res1.m_ptr << endl;
+		cout << res2.m_ptr << endl;
+		
+		// 이렇게 하게되면 res2와 res1의 주소가 복사되어 같게되는데 
+		// 리소스가 한번만 생성이 된 뒤 delete시에 m_ptr이 사라져 
+		// res2에 접근할 수 없다.
+		// 이걸 해결하는 깔끔한 방법은 소유권은 하나만 가지게 하는것
+		// 소유권을 이동(move)시킴
+		res2 = res1; // move sementics // 소유권 이전
+		
+		cout << res1.m_ptr << endl;
+		cout << res2.m_ptr << endl;
+	}
+
+	// syntax vs. semantics
+	// 컴파일이 되냐 안되냐 vs 내부적인 의미가 뭐냐
+	// value semantics (copy sementics)
+	// reference semantics (pointer)
+	// move semntics (move)
+	
+	return 0;
+}

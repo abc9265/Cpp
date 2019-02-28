@@ -1,0 +1,46 @@
+/*
+	the stack and the heap
+*/
+
+#include <iostream>
+
+using namespace std;
+
+int main()
+{
+	/*
+		프로그램을 실행시켜달라고 운영체제에 부탁하면
+		운영체제는 메모리를 가져다줌 
+		각각의 세그먼트가 역할이 다른데 
+		code세그먼트에는 프로그램이 저장된다.
+		Data영역이 두개가있는데
+		Initialized data segment와 unInitialized data segment 구역
+		BSS에는 0으로 저장된 전역과 스태틱 변수가 저장되고
+		data에는 초기화된 전역과 스태틱변수가 저장됨
+		실제 프로그램이 진행되면서 자세히 알아야할것은 stack과 Heap임
+		스택은 말그대로 무언가를 쌓는다는것 
+		스택프레임안에 main함수 자체와 로컬 variable를 저장함
+		first라는 함수를 만나면 first안에 있는 변수들과 함께 스택 프레임을 형성
+		스택프레임안에는 실행이 끝난다음에 어디로 돌아가야하는지 정의되어있다.
+		스택이 쌓여있으면 위에서부터 제거해나간다.
+		스택은 속도가 빠른대신 크기가 작다.
+		스택이 넘치면 Stack Overflow라고함
+		재귀호출시 발생할 수 있음.
+		지역변수는 Stack에 저장됨
+		보완해주기 위해서 Heap메모리를 추가로 사용함
+		동적할당시 지역변수로 stack에 저장하고 Heap에 만든다
+		Heap은 사이즈가 큰대신 메모리가 어디에생길지 예측하기 힘들다.
+		int *ptr = nullptr
+		ptr = new int[100000];
+		delete[] ptr; -> 힙에있는 메모리자체는 사라지지만 stack에있는 값은 남아있음 
+		그렇기떄문에 문제가 생길 수 있다.
+		그러므로 다시
+		ptr = nullptr를해줘서 없애주자
+		delete를 안할경우에는 Heap메모리가 잡혀있는데 함수가 만들어지고 나가는데 
+		포인터가 사라지면 Heap에 잡혀있는 메모리를 알 방법이 없으므로 그대로 
+		Heap에 있는것은 메모리가 쌓이게 되고 문제가 생긴다.
+	*/
+	
+	
+	return 0;
+}

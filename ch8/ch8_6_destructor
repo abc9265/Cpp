@@ -1,0 +1,77 @@
+/*
+	Destructor
+	소멸자
+	변수가 영역을 벗어나서 사라질때 호출되는 함수.
+*/
+
+#include <iostream>
+
+using namespace std;
+
+class Simple
+{
+	private:
+	int m_id; 
+	
+	public:
+	Simple(const int& id_in)
+		: m_id(id_in)
+	{ cout << "Constructor " << m_id << endl;}
+	
+	~Simple()
+	{
+		cout << "Destructor " << m_id << endl;
+	}  
+};
+
+class IntArray
+{
+	private:
+	int *m_arr = nullptr;
+	int m_length = 0;
+	
+	public:
+	IntArray(const int& length_in)
+	{
+		m_length = length_in;
+		m_arr = new int[m_length];
+	}
+	
+	int getLength() { return m_length; }
+	
+	~IntArray()
+	{
+		if(m_arr != nullptr)
+		{
+			delete[] m_arr;
+		}
+		// 영역을 벗어나면 자기가 혼자 알아서 소멸자를 호출해서 
+		// 메모리를 깔끔하게 지우고 사라짐
+	}
+	
+};
+
+
+
+int main()
+{
+	Simple *s1 = new  Simple(0); // 동적할당으로 선언
+	Simple s2(1);
+	
+	delete s1;
+	
+	// 소멸자 - 중괄호 영역을 벗어날 때 호출되는것
+	// C++에서는 Delete해주는 부분에서 자주쓰임
+	
+	// 메모리사용할때는 
+	// new가 있으면 delete가 있어야하고 
+	// 굳이 동적할당을 쓰기 귀찮으면 vector를 쓰면된다
+	// vector의 소멸자에는 이미 메모리를 반납하는 루틴이 구현되어있음.
+	// new와 delete는 좀 느리니까 vector의 사이즈와 커패시터가 분리되어있다.
+	while(true)
+	{
+		IntArray my_int_arr(10000);
+	}
+	
+	return 0;
+}

@@ -1,0 +1,62 @@
+/*
+	String stream
+*/
+
+#include <iostream> // cout 사용을 위해서 필요함.
+#include <sstream> // string_stream.
+using namespace std;
+
+int main()
+{
+	/*
+	stringstream os; // basic string stream
+	
+	// std::ostream os2; // basic ostream
+	
+	os << "Hello, World!"; // << : insertion operator, >> : extraction operator
+	// os.str("Hello, World! \n"); // 버퍼를 통째로 이걸로 바꿔버림
+	os << "Hello, World!2" << endl; ; // 덧붙여지는 형식이 됨 스트림이기 때문. endl로 string stream에 들어가있음
+	
+	// string str;
+	
+	// os >> str; // extraction
+	// str = os.str(); // 이렇게하면 다 가져옴
+	
+	// cout << str << endl;
+	cout << os.str() << endl; // 이런식으로 가져올 수도 있음.
+	*/
+	
+	
+	
+	stringstream os;
+	
+	int i = 12345;
+	double d = 67.89;
+	// os << "12345 67.89"; // 빈칸탓에 따로따로 나뉘어서 들어감 스트림 전반에 일어나는 현상임.
+	os << i << " " << d; // 이렇게써도 마찬가지.
+	
+	string str1;
+	string str2;
+	
+	// os >> str1 >> str2;
+	
+	// cout << str1 << "|" << str2 << endl;
+	
+	// 들어간값을 다시 받아옴
+	int i2;
+	double d2;
+	
+	os >> i2 >> d2;
+	
+	// cout << i2 << "|" << d2 << endl;
+	
+	// 스트림 비우기
+	// os.str(""); // 빈칸으로 대치되니까 비워진것과 같음
+	
+	os.clear(); // state rearrage 스테이트까지 초기화를 해버림. 다음 강의에서 스테이트가 뭔지 설명
+	os << "Hello";
+	
+	cout << os.str() << endl;
+	
+	return 0;
+}

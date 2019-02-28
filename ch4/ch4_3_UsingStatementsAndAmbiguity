@@ -1,0 +1,56 @@
+/*
+	Using statement and Ambiguity 
+	이름이 겹치는 경우가 은근 많이 발생됨
+	이 때 컴파일러는 이름이 같다면 어떤걸 사용해야 하나요하는데
+	이것을 모호성(Ambiguity)라고 한다. 
+	'이걸 써라'라고 분명하게 말할 수 있는게 Using문이다.
+	특정 헤더에다가 전역범위에 넣어버리면 헤더를 인클루드하는 모든 파일에
+	치명적인 에러를 일으킬 수 있음. 
+	헤더에 using namespace를 넣는것은 바람직하지 못하고
+	되도록 cpp파일에 만들자.
+	적은 범위에 영향을 끼치도록 만드는것이 좋다.
+*/
+
+#include <iostream>
+
+namespace a
+{
+	int my_a(10);
+	int my_value(10);
+	int count(1234);
+}
+
+namespace b
+{
+	int my_b(10);
+	int my_value(10);
+}
+
+int main()
+{
+	using namespace std;
+	// using std::cout; // std안의 cout만 가져옴 앞의 namespace는 지움 
+
+	cout << "Hello " << endl;
+	
+	
+	
+	// 모호성 방지를 위해서 
+	{
+		using namespace a;
+		cout << my_a << endl;
+		cout << my_value << endl;
+		// count는 std안에 포함되어 있기 때문에 밑의 코드의 경우 에러 발생
+		// cout << count << endl;  
+	}
+	
+	{
+		using namespace b;
+		cout << my_b << endl;
+		cout << my_value << endl;
+	}
+	
+	
+	
+	return 0;
+}

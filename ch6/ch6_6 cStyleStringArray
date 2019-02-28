@@ -1,0 +1,64 @@
+/*
+	C언어 스타일의 배열문자열 
+*/
+
+
+#include <iostream>
+#include <cstring> 
+
+
+using namespace std;
+
+int main()
+{
+	// 7칸으로 들어가있는데 맨 마지막에 Null 캐릭터가 들어가있기때문임.
+	char myString[] = "string";	
+	
+	for(int i = 0; i < 7; ++i)
+	{
+		cout << (int)myString[i] << endl;
+	}
+	
+	cout << sizeof(myString) / sizeof(myString[0]) << endl;
+	
+	char myString2[255];
+	
+	//cin.getline(myString2, 255);
+	
+	// \0는 null 캐릭터임. 문자열중 하나를 널캐릭터로 바꿔버리면
+	// 문자열출력을 중단시켜버림
+	// myString2[4] = '\0';
+	
+	//cout << myString2 << endl;
+	
+	int ix = 0;
+	while(true)
+	{
+		if(myString[ix] == '\0') break;
+		
+		cout << myString[ix] << " " << (int)myString[ix] << endl;
+		++ix;
+	}
+	
+	// source를 dest에 집어넣음 strcpy 전통적인 c스타일
+	// 근데 좀 위험함 
+	// dest의 크기가 작을경우 메모리 침범이 발생할 수 있음.
+	// 최근에는 strcpy_s를 쓰게 반강제로 쓰고있음
+	char source[] = "Copy this!";
+	char dest[50];
+	strcpy(dest, source); 
+	//strcpy_s(dest, 50, source); // 최대 복사해줄수있는 메모리의 크기 50 
+	//strcat()
+	//strcmp()도 있음.
+	
+	strcat(source, dest); // source > dest로 일단 복사, strcat이 한번 더 붙여줌
+	
+	// string compare펑션, 같으면 0을 리턴 같지않으면 -1리턴
+	// if문을 걸고싶으면 if(strcmp(source, dest) == 0)이런식으로 해야함.
+	cout << strcmp(source, dest) << endl; // 주의가 필요함. 
+	
+	
+	cout << source << endl;
+	cout << dest << endl;
+	return 0;
+}
